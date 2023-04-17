@@ -1,8 +1,8 @@
 <template>
-  <header class="navigation__container">
-    <div class="navigation__logo navigation__logo--mobile">
-      <img src="../../assets/img/LogoScooters.png" alt="" />
-    </div>
+  <header class="navigation__container" ref="navigationContainer">
+    <router-link to="/" class="navigation__logo navigation__logo--mobile"
+      ><img src="../../assets/img/LogoScooters.png" alt=""
+    /></router-link>
     <nav class="navigation" ref="navigation">
       <ul class="navigation__menu">
         <li><router-link to="/catalog" class="bold">Catalog</router-link></li>
@@ -10,23 +10,33 @@
         <li><router-link to="/about" class="bold">About us</router-link></li>
       </ul>
       <div class="navigation__logo navigation__logo--desktop">
-        <img src="../../assets/img/LogoScooters.png" alt="" />
+        <router-link to="/"
+          ><img src="../../assets/img/LogoScooters.png" alt=""
+        /></router-link>
       </div>
       <ul class="navigation__user-actions">
         <li>
-          <font-awesome-icon icon="fa-solid fa-phone" class="svg-medium" />
+          <router-link to="/"
+            ><font-awesome-icon icon="fa-solid fa-phone" class="svg-medium"
+          /></router-link>
         </li>
         <li>
-          <font-awesome-icon icon="fa-solid fa-person" class="svg-medium" />
+          <router-link to="/">
+            <font-awesome-icon icon="fa-solid fa-person" class="svg-medium" />
+          </router-link>
         </li>
         <li>
-          <font-awesome-icon icon="fa-solid fa-heart" class="svg-medium" />
+          <router-link to="/">
+            <font-awesome-icon icon="fa-solid fa-heart" class="svg-medium" />
+          </router-link>
         </li>
         <li>
-          <font-awesome-icon
-            icon="fa-solid fa-cart-shopping"
-            class="svg-medium"
-          />
+          <router-link to="/">
+            <font-awesome-icon
+              icon="fa-solid fa-cart-shopping"
+              class="svg-medium"
+            />
+          </router-link>
         </li>
       </ul>
     </nav>
@@ -61,6 +71,13 @@ export default {
   },
   created() {
     this.fetchCategories();
+    window.addEventListener("scroll", () => {
+      if (window.pageYOffset > 0) {
+        this.$refs.navigationContainer.classList.add("active");
+      } else {
+        this.$refs.navigationContainer.classList.remove("active");
+      }
+    });
   },
 };
 </script>
@@ -76,7 +93,7 @@ export default {
   left: -100%;
   width: 100vw;
   transition: transform 0.3s linear;
-  background-color: white;
+  background-color: $white;
   padding: 5rem 0;
   box-shadow: 0 0 12px 2px rgba($primary, 0.8);
   &.is-active {
@@ -103,6 +120,20 @@ export default {
     padding: 2rem 0;
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: $white;
+    &.active {
+      @media screen and (max-width: 1439px) {
+        @include boxShadow;
+      }
+    }
+    @media screen and (min-width: 1439px) {
+      padding: 2rem 0;
+      position: static;
+    }
   }
   &__menu,
   &__logo--desktop,
@@ -124,6 +155,7 @@ export default {
     flex-grow: 1;
     @media screen and (min-width: 1439px) {
       flex-direction: row;
+      justify-content: flex-start;
     }
     li {
       margin: 0 1rem;
@@ -142,6 +174,7 @@ export default {
         @media screen and (min-width: 1439px) {
           margin: 0.25rem;
         }
+        @include hoverSVG;
       }
     }
     @media screen and (min-width: 1439px) {
@@ -150,7 +183,7 @@ export default {
   }
   &__logo {
     display: flex;
-    align-content: center;
+    align-items: center;
     justify-content: center;
     &--mobile {
       @media screen and (min-width: 1439px) {
@@ -159,6 +192,7 @@ export default {
     }
     &--desktop {
       display: none;
+      cursor: pointer;
       @media screen and (min-width: 1439px) {
         display: flex;
       }
@@ -168,7 +202,6 @@ export default {
     background-color: transparent;
     border: none;
     display: block;
-    margin-right: 1rem;
     @media screen and (min-width: 1439px) {
       display: none;
     }
