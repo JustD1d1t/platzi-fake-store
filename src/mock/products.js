@@ -30,7 +30,13 @@ export const products = [
         image: orange,
         description:
           "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae repellendus dolorum voluptate iure illo labore minus aut ducimus atque sapiente distinctio magni, vero doloremque error, ut dolorem odio eius iste omnis ab provident dignissimos culpa. Voluptate, magni iure possimus eius reiciendis accusantium pariatur itaque, ab ea natus quidem perspiciatis unde.",
-        deliveryDate: "4-5 days",
+        fastestDeliveryTime: "4-5 days",
+        deliveryTime: {
+          Asia: "4-5 days",
+          Australia: "8-9 days",
+          America: "9-11 days",
+          Europe: "4-5 days",
+        },
       },
       {
         id: "2",
@@ -40,7 +46,13 @@ export const products = [
         image: green,
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus natus vero ab velit deserunt provident ullam placeat, nostrum minus dignissimos nam voluptatibus voluptatum minima repudiandae, fugiat exercitationem eveniet veritatis illum? Perspiciatis error nostrum quis. Fugiat.",
-        deliveryDate: "1 week",
+        fastestDeliveryTime: "1 week",
+        deliveryTime: {
+          Asia: "4-5 days",
+          Australia: "8-9 days",
+          America: "9-11 days",
+          Europe: "4-5 days",
+        },
       },
     ],
   },

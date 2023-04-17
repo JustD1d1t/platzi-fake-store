@@ -3,7 +3,7 @@
     <div class="banner__left">
       <h1 class="bold">Touch the vintage</h1>
       <h2>Online vintage and electric scooters shop</h2>
-      <button class="btn btn-primary btn-big">Shop now</button>
+      <the-button class="btn btn-primary btn-big">Shop now</the-button>
     </div>
     <div class="banner__right">
       <img :src="bannerScooters" alt="" />
@@ -26,16 +26,20 @@ export default {
 .banner {
   display: flex;
   flex-wrap: wrap;
+
   &__left {
     @include centerColumn;
   }
+
   &__left,
   &__right {
     width: 100%;
+
     @media screen and (min-width: 1023px) {
       width: 50%;
     }
   }
+
   &__right {
     img {
       width: 100%;
@@ -43,5 +47,4 @@ export default {
       object-fit: contain;
     }
   }
-}
-</style>
+}</style>
