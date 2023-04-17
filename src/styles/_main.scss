@@ -2,6 +2,7 @@
 @import "./_fonts.scss";
 @import "./_mixins";
 @import "./_classes";
+@import "./_buttons";
 
 html {
   font-size: 16px;
@@ -20,6 +21,10 @@ body {
   line-height: 1.75;
   color: #000000;
   margin: 0;
+  padding-top: 108px;
+  @media screen and (min-width: 1439px) {
+    padding-top: 0;
+  }
 }
 
 .container {

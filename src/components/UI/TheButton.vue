@@ -27,7 +27,7 @@ button {
   padding: 0.5rem 2rem;
   border-radius: 50px;
   border: none;
-  font-size: 1rem;
+  font-size: 1.25rem;
   cursor: pointer;
   @include boxShadow;
   transition: color 0.15s linear, background-color 0.15s linear,
@@ -60,7 +60,7 @@ button {
 
 .btn-big {
   padding: 1rem 3rem;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 
 .btn-wide {

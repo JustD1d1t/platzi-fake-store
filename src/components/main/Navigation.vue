@@ -125,6 +125,7 @@ export default {
     left: 0;
     width: 100%;
     background-color: $white;
+    z-index: 2;
     &.active {
       @media screen and (max-width: 1439px) {
         @include boxShadow;
