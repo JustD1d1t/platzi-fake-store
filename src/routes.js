@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import IndexPage from "@/pages/index";
-import Category from "@/pages/category/index";
+import Catalog from "@/pages/catalog/index";
+import Product from "@/pages/product/index";
 
 const routes = [
   {
@@ -8,8 +9,12 @@ const routes = [
     component: IndexPage,
   },
   {
-    path: "/category",
-    component: Category,
+    path: "/catalog",
+    component: Catalog,
+  },
+  {
+    path: "/product/:id",
+    component: Product,
   },
   {
     path: "/:catchAll(.*)", // Unrecognized path automatically matches 404
