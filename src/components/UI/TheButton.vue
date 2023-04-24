@@ -63,6 +63,15 @@ button {
   font-size: 1.25rem;
 }
 
+.btn-small {
+  padding: 0.25rem 0.75rem;
+  font-size: 1rem;
+}
+
+.no-shadow {
+  box-shadow: none;
+}
+
 .btn-wide {
   padding: 0.5rem 4rem;
 }
@@ -75,8 +84,11 @@ button {
     padding: 0;
   }
 
-  &:hover {
-    transform: scale(1.1);
+  @media screen and (min-width: 1439px) {
+    &:hover {
+      transform: scale(1.1);
+    }
   }
+
 }
 </style>

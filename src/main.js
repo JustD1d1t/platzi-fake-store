@@ -20,6 +20,7 @@ import {
   faHashtag,
   faTornado,
   faLaptop,
+  faFilter,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as heartRegular } from "@fortawesome/free-regular-svg-icons";
 
@@ -36,7 +37,8 @@ library.add(
   faHashtag,
   faTornado,
   faLaptop,
-  heartRegular
+  heartRegular,
+  faFilter
 );
 
 import TheButton from "../src/components/UI/TheButton.vue";

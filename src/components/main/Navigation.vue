@@ -90,14 +90,14 @@ export default {
   height: 100vh;
   position: fixed;
   top: 0;
-  left: -100%;
+  left: -102vw;
   width: 100vw;
   transition: transform 0.3s linear;
   background-color: $white;
   padding: 5rem 0;
   box-shadow: 0 0 12px 2px rgba($primary, 0.8);
   &.is-active {
-    transform: translateX(100%);
+    transform: translateX(102vw);
     @media screen and (min-width: 767px) {
       transform: translateX(300px);
     }
