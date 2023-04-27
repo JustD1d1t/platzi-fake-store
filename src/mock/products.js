@@ -67,12 +67,14 @@ export const products = [
     seats: "1",
     variants: [
       {
+        id: "3",
         rating: 5,
         numberOfVotes: 15,
         color: "black",
         image: black,
       },
       {
+        id: "4",
         rating: 5,
         numberOfVotes: 15,
         color: "red",
@@ -91,12 +93,14 @@ export const products = [
     seats: "2",
     variants: [
       {
+        id: "5",
         rating: 5,
         numberOfVotes: 15,
         color: "green",
         image: green2,
       },
       {
+        id: "6",
         rating: 5,
         numberOfVotes: 15,
         color: "white",
@@ -115,12 +119,14 @@ export const products = [
     seats: "2",
     variants: [
       {
+        id: "7",
         rating: 5,
         numberOfVotes: 15,
         color: "white",
         image: white2,
       },
       {
+        id: "8",
         rating: 5,
         numberOfVotes: 15,
         color: "orange",
@@ -139,12 +145,14 @@ export const products = [
     seats: "1",
     variants: [
       {
+        id: "9",
         rating: 5,
         numberOfVotes: 15,
         color: "blue",
         image: blueWhiteCustom,
       },
       {
+        id: "10",
         rating: 5,
         numberOfVotes: 15,
         color: "red",
@@ -163,12 +171,14 @@ export const products = [
     seats: "2",
     variants: [
       {
+        id: "11",
         rating: 5,
         numberOfVotes: 15,
         color: "red",
         image: RoyalAlloyGP200LCRed,
       },
       {
+        id: "12",
         rating: 5,
         numberOfVotes: 15,
         color: "blue",
@@ -187,12 +197,14 @@ export const products = [
     seats: "2",
     variants: [
       {
+        id: "13",
         rating: 5,
         numberOfVotes: 10,
         color: "orange",
         image: orange,
       },
       {
+        id: "14",
         rating: 5,
         numberOfVotes: 15,
         color: "green",
@@ -211,12 +223,14 @@ export const products = [
     seats: "2",
     variants: [
       {
+        id: "15",
         rating: 5,
         numberOfVotes: 15,
         color: "black",
         image: black,
       },
       {
+        id: "16",
         rating: 5,
         numberOfVotes: 15,
         color: "red",
@@ -235,12 +249,14 @@ export const products = [
     seats: "2",
     variants: [
       {
+        id: "17",
         rating: 5,
         numberOfVotes: 15,
         color: "green",
         image: green2,
       },
       {
+        id: "18",
         rating: 5,
         numberOfVotes: 15,
         color: "white",
@@ -258,12 +274,14 @@ export const products = [
     seats: "2",
     variants: [
       {
+        id: "19",
         rating: 5,
         numberOfVotes: 15,
         color: "white",
         image: white2,
       },
       {
+        id: "20",
         rating: 5,
         numberOfVotes: 15,
         color: "orange",
@@ -281,12 +299,14 @@ export const products = [
     seats: "2",
     variants: [
       {
+        id: "21",
         rating: 5,
         numberOfVotes: 15,
         color: "blue",
         image: blueWhiteCustom,
       },
       {
+        id: "22",
         rating: 5,
         numberOfVotes: 15,
         color: "red",
@@ -304,12 +324,14 @@ export const products = [
     seats: "1",
     variants: [
       {
+        id: "23",
         rating: 5,
         numberOfVotes: 15,
         color: "red",
         image: RoyalAlloyGP200LCRed,
       },
       {
+        id: "24",
         rating: 5,
         numberOfVotes: 15,
         color: "blue",

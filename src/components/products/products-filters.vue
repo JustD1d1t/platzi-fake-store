@@ -14,6 +14,7 @@
 
 <script>
 export default {
+    emits: ['setFilters', 'saveFilters'],
     props: {
         filters: {
             type: Object,

@@ -10,43 +10,24 @@
 
 <script>
 export default {
-    data() {
-        return {
-            formattedQueries: [],
-        }
-    },
-    props: {
-        queries: {
-            type: Object,
-            default: () => { }
-        }
-    },
-    methods: {
-        setActiveFilters() {
-            const q = this.queries;
-            this.formattedQueries = [];
+    computed: {
+        formattedQueries() {
+            const q = this.$route.query;
+            const formattedQueries = [];
             for (const key in q) {
                 if (Array.isArray(q[key])) {
-                    this.formattedQueries.push(...q[key].map(query => ({
+                    formattedQueries.push(...q[key].map(query => ({
                         type: key,
                         value: query,
                     })))
                 } else {
-                    this.formattedQueries.push({
+                    formattedQueries.push({
                         type: key,
                         value: q[key]
                     })
                 }
             }
-
-        }
-    },
-    updated() {
-        this.setActiveFilters();
-    },
-    watch: {
-        '$route.query'() {
-            this.setActiveFilters();
+            return formattedQueries
         }
     },
 

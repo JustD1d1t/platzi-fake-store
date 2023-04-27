@@ -55,7 +55,6 @@ export default {
     },
     methods: {
         changeColor(index) {
-            console.log('aa')
             this.$emit('changeColor', index)
         }
     }
