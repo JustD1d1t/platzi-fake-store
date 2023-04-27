@@ -2,8 +2,10 @@
     <div class="products-brick">
         <div class="products-brick__top">
             <the-button classes="btn-svg" @click="toggleFavourite">
-                <font-awesome-icon v-if="favourite" icon="fa-solid fa-heart" class="svg-big" />
-                <font-awesome-icon v-else icon="fa-regular fa-heart" class="svg-big" />
+                <font-awesome-icon v-if="isInFavorites" icon="fa-solid fa-heart" class="svg-big"
+                    @click="() => removeFromFavorite({ scooterId: product.variants[selectedVariant].id })" />
+                <font-awesome-icon v-else icon="fa-regular fa-heart" class="svg-big"
+                    @click="() => addToFavorite({ scooterId: product.variants[selectedVariant].id })" />
             </the-button>
         </div>
         <div class="products-brick__image">
@@ -13,8 +15,10 @@
             <product-description :name="product.name" :rating="product.variants[selectedVariant].rating"
                 :number-of-votes="product.variants[selectedVariant].numberOfVotes" :price="product.price"
                 :available-colors="availableColors" :selectedVariant="selectedVariant"
-                :id="product.variants[selectedVariant].id" :name-link="true" @changeColor="changeColor"
-                @addToCart="addToCart">
+                :id="product.variants[selectedVariant].id" :name-link="true" @changeColor="changeColor" @addToCart="() => addToCart({
+                    scooter: product,
+                    selectedVariant: selectedVariant
+                })">
                 <products-brick-colors :available-colors="availableColors" :selected-variant="selectedVariant"
                     @changeColor="changeColor" />
             </product-description>
@@ -25,6 +29,7 @@
 <script>
 import productDescription from '@/components/products/item/product-description'
 import productsBrickColors from '@/components/products/products-brick-colors'
+import { mapMutations, mapState } from 'vuex'
 export default {
     components: {
         productDescription,
@@ -38,24 +43,30 @@ export default {
     },
     data() {
         return {
-            favourite: false,
             selectedVariant: 0,
         }
     },
     computed: {
+        ...mapState('user', [
+            'favorite',
+        ]),
         availableColors() {
             return this.product.variants.map(variant => variant.color)
+        },
+        isInFavorites() {
+            return this.favorite.includes(this.product.variants[this.selectedVariant].id)
         }
     },
     methods: {
+        ...mapMutations('user', [
+            'addToFavorite',
+            'removeFromFavorite',
+            'addToCart'
+        ]),
         toggleFavourite() {
             this.favourite = !this.favourite;
         },
-        addToCart() {
-            console.log('addToCart')
-        },
         changeColor(index) {
-            console.log(index)
             this.selectedVariant = index;
         }
     }

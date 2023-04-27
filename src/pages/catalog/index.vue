@@ -5,7 +5,7 @@
         <font-awesome-icon icon="fa-solid fa-filter" class="svg-big" />
       </the-button>
     </div>
-    <products-active-filters :queries="query" @removeFilter="removeFilter" @resetFilters="resetFilters" />
+    <products-active-filters @removeFilter="removeFilter" @resetFilters="resetFilters" />
     <div class="catalog__filters" ref="filters">
       <productsFilters :filters="filters" @setFilters="setFilters" @saveFilters="saveFilters" />
     </div>
@@ -130,12 +130,11 @@ export default {
   },
   watch: {
     '$route.query'() {
-      console.log('a')
     }
   },
-  mounted() {
+  async mounted() {
     this.query = { ...this.$route.query }
-  }
+  },
 }
 </script>
 

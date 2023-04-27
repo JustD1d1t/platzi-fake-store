@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import IndexPage from "@/pages/index";
 import Catalog from "@/pages/catalog/index";
 import Product from "@/pages/product/index";
+import basketStep1 from "@/pages/basket/basket-step1";
 
 const routes = [
   {
@@ -11,6 +12,10 @@ const routes = [
   {
     path: "/catalog",
     component: Catalog,
+  },
+  {
+    path: "/basket",
+    component: basketStep1,
   },
   {
     path: "/product/:id",
