@@ -11,7 +11,7 @@
         <basketStepCounter step="one" />
         <h2>Delivery Data</h2>
         <div class="basket-step-one__container">
-            <basketDeliveryForm @setStepTwo="setStepTwo" @setStepZero="setStep" class="basket-step-one__form" />
+            <basketDeliveryForm @setStep="setStep" class="basket-step-one__form" />
             <div class="basket-step-one__details">
                 <basketPromoCode @activateCode="activateCode" :promocodeActivated="isPromocodeActivated" />
                 <basketSummary :total-cost="totalCost" />
@@ -57,7 +57,7 @@ export default {
     },
     data() {
         return {
-            step: 2,
+            step: 0,
             deliveryData: {},
             promocodeActivated: false,
         }
@@ -84,6 +84,7 @@ export default {
     },
     methods: {
         setStep(step) {
+            console.log('aa')
             this.step = step
         },
         activateCode(code) {

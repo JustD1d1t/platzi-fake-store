@@ -15,7 +15,6 @@
 export default {
     methods: {
         submit() {
-            console.log('submit')
             this.$emit("setStep", 2)
         }
     },
