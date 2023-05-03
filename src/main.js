@@ -44,7 +44,8 @@ library.add(
 import TheButton from "../src/components/UI/TheButton.vue";
 import TheInput from "@/components/form/input.vue";
 import checkbox from "@/components/form/checkbox";
-import DataTable from "@/components/UI/DataTable";
+import text from "@/components/form/text";
+import radio from '@/components/form/radio'
 
 const app = createApp(App);
 
@@ -52,7 +53,8 @@ app.component("font-awesome-icon", FontAwesomeIcon);
 app.component("TheButton", TheButton);
 app.component("TheInput", TheInput);
 app.component("checkbox", checkbox);
-app.component("DataTable", DataTable);
+app.component("formText", text);
+app.component("radio", radio);
 app.use(VueAxios, axios);
 
 app.use(store);

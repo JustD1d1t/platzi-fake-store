@@ -1,8 +1,8 @@
-import { createWebHistory, createRouter } from "vue-router";
+import { createWebHashHistory, createRouter } from "vue-router";
 import IndexPage from "@/pages/index";
 import Catalog from "@/pages/catalog/index";
 import Product from "@/pages/product/index";
-import basketStep1 from "@/pages/basket/basket-step1";
+import basket from "@/pages/basket/index";
 
 const routes = [
   {
@@ -15,7 +15,7 @@ const routes = [
   },
   {
     path: "/basket",
-    component: basketStep1,
+    component: basket,
   },
   {
     path: "/product/:id",
@@ -27,7 +27,7 @@ const routes = [
   },
 ];
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 export default router;

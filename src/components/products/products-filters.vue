@@ -4,9 +4,9 @@
             {{ filter.name }}
         </span>
         <div class="products__filters" :ref="name">
-            <checkbox v-for="option in filter.options" :key="option" :name="option" :label="option"
-                @checkboxClicked="this.$emit('setFilters', option, name)"
-                :checked="activeQueries[name]?.includes(option)" />
+            <checkbox v-for="option in filter.options" :key="option" :field="option"
+                @checkboxClicked="this.$emit('setFilters', option.label, name)"
+                :checked="activeQueries[option.label]?.includes(option)" />
         </div>
     </div>
     <the-button class="btn btn-primary btn-big" @click="this.$emit('saveFilters')">Save filters</the-button>

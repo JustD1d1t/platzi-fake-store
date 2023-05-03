@@ -1,7 +1,8 @@
 <template>
-    <div class="form-control">
-        <label :for="name">{{ label }}
-            <input type="checkbox" :name="name" :id="name" :checked="checked" @click="this.$emit('checkboxClicked')">
+    <div class="form-field form-field--checkbox">
+        <label :for="field.label">{{ field.label }}
+            <input type="checkbox" :name="field.label" :id="field.label" :checked="checked"
+                @click="this.$emit('checkboxClicked')">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -10,13 +11,10 @@
 <script>
 export default {
     props: {
-        name: {
-            type: String,
+        field: {
+            type: Object,
+            default: () => { },
             required: true,
-        },
-        label: {
-            type: String,
-            default: ''
         },
         checked: {
             type: Boolean,
@@ -28,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.form-control {
+.form-field {
     display: block;
     position: relative;
     padding-left: 35px;
@@ -37,6 +35,8 @@ export default {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    width: 100%;
+    margin-bottom: 16px;
 
     & label {
         cursor: pointer;

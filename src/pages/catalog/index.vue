@@ -1,7 +1,7 @@
 <template>
   <section class="catalog">
     <div class="catalog__toggle-filters">
-      <the-button classes="btn-svg" @click="toggleFilters">
+      <the-button class="btn-svg" @click="toggleFilters">
         <font-awesome-icon icon="fa-solid fa-filter" class="svg-big" />
       </the-button>
     </div>
@@ -33,27 +33,122 @@ export default {
       filters: {
         manufacturer: {
           name: 'Manufacturer',
-          options: ['Forte', 'Honda', 'Moto Tech', 'Mustang', 'Spark', 'Suzuki', 'Viper', 'Yiben', 'Yamaha']
+          options: [
+            {
+              label: 'Forte',
+              component: "checkbox"
+            },
+            {
+              label: 'Honda',
+              component: "checkbox"
+            },
+            {
+              label: 'Moto Tech',
+              component: "checkbox"
+            },
+            {
+              label: 'Mustang',
+              component: "checkbox"
+            },
+            {
+              label: 'Spark',
+              component: "checkbox"
+            },
+            {
+              label: 'Suzuki',
+              component: "checkbox"
+            },
+            {
+              label: 'Viper',
+              component: "checkbox"
+            },
+            {
+              label: 'Yiben',
+              component: "checkbox"
+            },
+            {
+              label: 'Yamaha',
+              component: "checkbox"
+            },
+          ]
         },
         country: {
           name: 'Country',
-          options: ['Japan', 'China']
+          options: [
+            {
+              label: 'Japan',
+              component: "checkbox"
+            },
+            {
+              label: 'China',
+              component: "checkbox"
+            }
+          ]
         },
         powerType: {
           name: 'Power Type',
-          options: ['petrol', 'electric']
+          options: [
+            {
+              label: 'petrol',
+              component: "checkbox"
+            },
+            {
+              label: 'electric',
+              component: "checkbox"
+            }
+          ]
         },
         engineCapacity: {
           name: 'Engine Capacity',
-          options: ['50', '80', '100', '125', '150']
+          options: [
+            {
+              label: '50',
+              component: "checkbox"
+            },
+
+            {
+              label: '80',
+              component: "checkbox"
+            },
+            {
+              label: '100',
+              component: "checkbox"
+            },
+            {
+              label: '125',
+              component: "checkbox"
+            },
+            {
+              label: '150',
+              component: "checkbox"
+            }
+          ]
         },
         wheelSize: {
           name: 'Wheel Size',
-          options: ['10', '12'],
+          options: [
+            {
+              label: '10',
+              component: "checkbox"
+            },
+            {
+              label: '12',
+              component: "checkbox"
+            }
+          ],
         },
         seats: {
           name: 'Seats',
-          options: ['1', '2']
+          options: [
+            {
+              label: '1',
+              component: "checkbox"
+            },
+            {
+              label: '2',
+              component: "checkbox"
+            }
+          ]
         }
       },
       query: {},
@@ -88,19 +183,18 @@ export default {
     }
   },
   methods: {
-    setFilters(name, type) {
-
+    setFilters(label, type) {
       if (this.query[type]) {
-        if (this.query[type].includes(name)) {
-          this.query[type] = [...this.query[type].filter(q => q !== name)]
+        if (this.query[type].includes(label)) {
+          this.query[type] = [...this.query[type].filter(q => q !== label)]
           if (this.query[type].length === 0) {
             delete this.query[type]
           }
         } else {
-          this.query[type] = [...this.query[type], name]
+          this.query[type] = [...this.query[type], label]
         }
       } else {
-        this.query[type] = [name]
+        this.query[type] = [label]
       }
     },
     saveFilters() {

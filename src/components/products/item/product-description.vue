@@ -6,7 +6,7 @@
         <div class="product__rating">{{ rating }} <span>({{ numberOfVotes }})</span></div>
     </div>
     <div class="product__add-to-cart">
-        <the-button classes="btn-svg" @click="this.$emit('addToCart')">
+        <the-button class="btn-svg" @click="this.$emit('addToCart')">
             <font-awesome-icon icon="fa-solid fa-cart-shopping" class="svg-big" />
         </the-button>
     </div>

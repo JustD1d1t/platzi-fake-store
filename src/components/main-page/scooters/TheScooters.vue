@@ -7,7 +7,7 @@
     <div class="scooter__info">
       <h3>{{ scooter.name }}</h3>
       <span>{{ scooter.description }}</span>
-      <the-button classes="btn btn-primary btn-big">Learn more</the-button>
+      <the-button class="btn btn-primary btn-big">Learn more</the-button>
     </div>
   </div>
 </template>
