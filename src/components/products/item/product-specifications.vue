@@ -15,10 +15,6 @@ export default {
         data: {
             type: Object,
             default: () => { }
-        },
-        classes: {
-            type: String,
-            default: ''
         }
     }
 

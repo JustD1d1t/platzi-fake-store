@@ -93,6 +93,7 @@ export default {
 <style lang="scss" scoped>
 .footer {
   padding: 30px 0;
+  margin-top: auto;
   &__top {
     display: flex;
     flex-direction: column;

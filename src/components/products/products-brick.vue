@@ -1,7 +1,7 @@
 <template>
     <div class="products-brick">
         <div class="products-brick__top">
-            <the-button classes="btn-svg" @click="toggleFavourite">
+            <the-button class="btn-svg" @click="toggleFavourite">
                 <font-awesome-icon v-if="isInFavorites" icon="fa-solid fa-heart" class="svg-big"
                     @click="() => removeFromFavorite({ scooterId: product.variants[selectedVariant].id })" />
                 <font-awesome-icon v-else icon="fa-regular fa-heart" class="svg-big"

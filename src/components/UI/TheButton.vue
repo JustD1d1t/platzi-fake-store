@@ -1,17 +1,11 @@
 <template>
-  <button :class="classes">
+  <button>
     <slot />
   </button>
 </template>
 
 <script>
 export default {
-  props: {
-    classes: {
-      type: String,
-      default: ''
-    }
-  }
 };
 </script>
 
@@ -74,6 +68,10 @@ button {
 
 .btn-wide {
   padding: 0.5rem 4rem;
+}
+
+.btn-fullwidth {
+  width: 100%;
 }
 
 .btn-svg {
