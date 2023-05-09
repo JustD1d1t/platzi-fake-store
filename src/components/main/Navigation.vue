@@ -4,17 +4,19 @@
         alt="" /></router-link>
     <nav class="navigation" ref="navigation">
       <ul class="navigation__menu">
-        <li><router-link to="/catalog" class="bold">Catalog</router-link></li>
-        <li><router-link to="/contacts" class="bold">Contacts</router-link></li>
-        <li><router-link to="/about" class="bold">About us</router-link></li>
+        <li v-for="link in links" :key="link"><router-link :to="link.url" class="bold" @click="handleMenu">{{ link.label
+        }}</router-link></li>
       </ul>
       <div class="navigation__logo navigation__logo--desktop">
         <router-link to="/"><img src="../../assets/img/LogoScooters.png" alt="" /></router-link>
       </div>
       <ul class="navigation__user-actions">
-        <li v-for="link in links" :key="link.icon">
-          <router-link :to="link.url"><font-awesome-icon :icon="`fa-solid ${link.icon}`"
-              class="svg-medium" /></router-link>
+        <li v-for="link in actionLinks" :key="link.icon">
+          <router-link :to="link.url" :class="{ relative: link.badge }"><font-awesome-icon :icon="`fa-solid ${link.icon}`"
+              class="svg-medium" />
+            <badge v-if="link.badge">{{ link.count }}</badge>
+          </router-link>
+
         </li>
       </ul>
     </nav>
@@ -28,10 +30,22 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import isTablet from "../../helpers/isTablet";
 export default {
   data() {
     return {
-      links: [
+    }
+  },
+  computed: {
+    ...mapState("Categories", {
+      categories: "categories",
+    }),
+    ...mapState("user", {
+      addedToCart: "addedToCart",
+      favorite: "favorite",
+    }),
+    actionLinks() {
+      return [
         {
           url: "/",
           icon: 'fa-solid fa-phone'
@@ -42,28 +56,52 @@ export default {
         },
         {
           url: "/",
-          icon: 'fa-solid fa-heart'
+          icon: 'fa-solid fa-heart',
+          badge: true,
+          count: this.favorite.length
         },
         {
           url: "/basket",
           icon: 'fa-solid fa-cart-shopping',
+          badge: true,
+          count: this.addedToCartQuantity
         },
-
       ]
-    }
-  },
-  computed: {
-    ...mapState("Categories", {
-      categories: "categories",
-    }),
+    },
+    links() {
+      return [
+        {
+          url: "/catalog",
+          label: 'Catalog'
+        },
+        {
+          url: "/contacts",
+          label: 'Contacts'
+        },
+        {
+          url: "/about",
+          label: 'About us'
+        },
+      ]
+    },
+    addedToCartQuantity() {
+      const cart = this.addedToCart;
+      let count = 0;
+      for (const key in cart) {
+        count += cart[key].quantity
+      }
+      return count;
+    },
   },
   methods: {
     ...mapActions({
       fetchCategories: "Categories/fetchCategories",
     }),
     handleMenu() {
-      this.$refs.hamburger.classList.toggle("is-active");
-      this.$refs.navigation.classList.toggle("is-active");
+      if (isTablet()) {
+        this.$refs.hamburger.classList.toggle("is-active");
+        this.$refs.navigation.classList.toggle("is-active");
+      }
     },
   },
   created() {
@@ -87,23 +125,24 @@ export default {
   height: 100vh;
   position: fixed;
   top: 0;
-  left: -102vw;
+  right: -100vw;
   width: 100vw;
   transition: transform 0.3s linear;
   background-color: $white;
   padding: 5rem 0;
   box-shadow: 0 0 12px 2px rgba($primary, 0.8);
+  z-index: 998;
 
   &.is-active {
-    transform: translateX(102vw);
+    transform: translateX(-102vw);
 
     @media screen and (min-width: 767px) {
-      transform: translateX(300px);
+      transform: translateX(-300px);
     }
   }
 
   @media screen and (min-width: 767px) {
-    left: -300px;
+    right: -300px;
     width: 300px;
   }
 
@@ -116,6 +155,7 @@ export default {
     height: auto;
     width: 100%;
     padding: 0;
+    margin-bottom: 30px;
   }
 
   &__container {
@@ -185,15 +225,19 @@ export default {
     li {
       display: flex;
       align-items: center;
+      @include hoverChildSVG;
+
+      a {
+        margin: 0.25rem;
+        width: 28px;
+        height: 28px;
+        @include center;
+      }
 
       svg {
-        margin: 0.25rem 0.5rem;
-
         @media screen and (min-width: 1439px) {
           margin: 0.25rem;
         }
-
-        @include hoverSVG;
       }
     }
 
@@ -227,6 +271,7 @@ export default {
     background-color: transparent;
     border: none;
     display: block;
+    z-index: 999;
 
     @media screen and (min-width: 1439px) {
       display: none;

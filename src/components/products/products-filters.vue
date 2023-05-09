@@ -9,7 +9,7 @@
                 :checked="activeQueries[option.label]?.includes(option)" />
         </div>
     </div>
-    <the-button class="btn btn-primary btn-big" @click="this.$emit('saveFilters')">Save filters</the-button>
+    <the-button class="btn btn-primary btn-big btn-fullwidth" @click="this.$emit('saveFilters')">Save filters</the-button>
 </template>
 
 <script>

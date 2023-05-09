@@ -1,6 +1,11 @@
 <template>
   <section class="catalog">
-    <div class="catalog__toggle-filters">
+    <div class="catalog__toggle-filters" v-if="!isComputerDevice">
+      <the-button class="btn-svg" @click="toggleFilters">
+        <font-awesome-icon icon="fa-solid fa-filter" class="svg-big" />
+      </the-button>
+    </div>
+    <div class="catalog__toggle-filters catalog__toggle-filters--computer" v-else>
       <the-button class="btn-svg" @click="toggleFilters">
         <font-awesome-icon icon="fa-solid fa-filter" class="svg-big" />
       </the-button>
@@ -10,9 +15,11 @@
       <productsFilters :filters="filters" @setFilters="setFilters" @saveFilters="saveFilters" />
     </div>
     <div class="catalog__items">
-      <productsBrick v-for="(product, index) in filteredProducts" :product="product" :key="index" />
+      <productsBrick v-for="(product, index) in filteredProducts" :product="product" :key="index"
+        @addedToCart="displayAddedNotification" />
     </div>
   </section>
+  <notification :show="addedToCart">Added to cart</notification>
 </template>
 
 <script>
@@ -20,6 +27,7 @@ import productsBrick from '../../components/products/products-brick';
 import productsFilters from '@/components/products/products-filters'
 import productsActiveFilters from '@/components/products/products-active-filters'
 import { products } from '../../mock/products';
+import isComputer from '../../helpers/isComputer';
 
 export default {
   components: {
@@ -152,6 +160,7 @@ export default {
         }
       },
       query: {},
+      addedToCart: false,
     }
   },
   computed: {
@@ -180,7 +189,10 @@ export default {
         filteredProducts = filteredProducts.filter(product => filters.seats.includes(product.seats))
       }
       return filteredProducts;
-    }
+    },
+    isComputerDevice() {
+      return isComputer();
+    },
   },
   methods: {
     setFilters(label, type) {
@@ -220,14 +232,25 @@ export default {
     resetFilters() {
       this.query = {};
       this.$router.push('/catalog');
+    },
+    displayAddedNotification() {
+      this.addedToCart = true;
+      setTimeout(() => {
+        this.addedToCart = false;
+      }, 1500);
     }
   },
   watch: {
     '$route.query'() {
     }
   },
-  async mounted() {
+  mounted() {
     this.query = { ...this.$route.query }
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 1023) {
+        this.$refs.filters.classList.remove("active")
+      }
+    })
   },
 }
 </script>
@@ -239,7 +262,7 @@ export default {
   grid-template-rows: auto 1fr;
   grid-template-areas: 'filter' 'items';
 
-  @media screen and (min-width: 1023px) {
+  @media screen and (min-width: 1399px) {
     grid-template-columns: 250px 1fr 1fr 1fr;
     grid-template-areas: 'filters active-filters active-filters active-filters' 'filters items items items';
   }
@@ -257,9 +280,9 @@ export default {
     height: calc(100vh - 108px);
     padding: 16px 32px 16px 16px;
 
-    @media screen and (min-width: 1023px) {
+    @media screen and (min-width: 1399px) {
       position: static;
-      padding: 0 16px 16px 16px;
+      padding: 0 16px 16px 0;
       height: auto;
     }
 
@@ -284,7 +307,6 @@ export default {
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: auto auto 1fr;
       gap: 35px 52px;
-
     }
   }
 

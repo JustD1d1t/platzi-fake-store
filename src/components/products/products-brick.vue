@@ -15,10 +15,8 @@
             <product-description :name="product.name" :rating="product.variants[selectedVariant].rating"
                 :number-of-votes="product.variants[selectedVariant].numberOfVotes" :price="product.price"
                 :available-colors="availableColors" :selectedVariant="selectedVariant"
-                :id="product.variants[selectedVariant].id" :name-link="true" @changeColor="changeColor" @addToCart="() => addToCart({
-                    scooter: product,
-                    selectedVariant: selectedVariant
-                })">
+                :id="product.variants[selectedVariant].id" :name-link="true" @changeColor="changeColor"
+                @addToCart="addScooterToCart">
                 <products-brick-colors :available-colors="availableColors" :selected-variant="selectedVariant"
                     @changeColor="changeColor" />
             </product-description>
@@ -31,6 +29,7 @@ import productDescription from '@/components/products/item/product-description'
 import productsBrickColors from '@/components/products/products-brick-colors'
 import { mapMutations, mapState } from 'vuex'
 export default {
+    emits: ['addedToCart'],
     components: {
         productDescription,
         productsBrickColors
@@ -68,6 +67,13 @@ export default {
         },
         changeColor(index) {
             this.selectedVariant = index;
+        },
+        addScooterToCart() {
+            this.addToCart({
+                scooter: this.product,
+                selectedVariant: this.selectedVariant
+            });
+            this.$emit("addedToCart")
         }
     }
 }

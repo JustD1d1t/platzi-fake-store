@@ -45,7 +45,9 @@ import TheButton from "../src/components/UI/TheButton.vue";
 import TheInput from "@/components/form/input.vue";
 import checkbox from "@/components/form/checkbox";
 import text from "@/components/form/text";
-import radio from '@/components/form/radio'
+import radio from "@/components/form/radio";
+import notification from "@/components/UI/notification";
+import badge from "@/components/UI/badge";
 
 const app = createApp(App);
 
@@ -55,6 +57,8 @@ app.component("TheInput", TheInput);
 app.component("checkbox", checkbox);
 app.component("formText", text);
 app.component("radio", radio);
+app.component("notification", notification);
+app.component("badge", badge);
 app.use(VueAxios, axios);
 
 app.use(store);

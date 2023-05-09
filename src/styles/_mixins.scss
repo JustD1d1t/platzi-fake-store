@@ -28,6 +28,14 @@
     }
   }
 }
+@mixin hoverChildSVG {
+  @media screen and (min-width: 1439px) {
+    &:hover svg {
+      color: $secondary;
+      transform: scale(1.25);
+    }
+  }
+}
 
 @mixin scrollBar {
   &::-webkit-scrollbar {

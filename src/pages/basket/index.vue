@@ -1,11 +1,13 @@
 <template>
-    <div v-if="step === 0">
+    <div v-if="step === 0" :class="{ 'basket-items__no-items': !isAnyScooterInCart }">
         <h2 class="text-center" v-if="!isAnyScooterInCart">There is no items in your basket</h2>
         <div v-else class="basket-items">
-            <basketItem v-for="scooter in addedToCart" :key="scooter.id" :scooter="scooter" />
+            <basketItem v-for="  scooter   in   addedToCart  " :key="scooter.id" :scooter="scooter" />
         </div>
-        <the-button class="btn btn-primary btn-big finish-shopping-button" @click="() => setStep(1)">Finish
-            shopping</the-button>
+        <the-button class="btn btn-primary btn-big finish-shopping-button" @click="() => setStep(1)"
+            v-if="isAnyScooterInCart">
+            Finish shopping
+        </the-button>
     </div>
     <div v-if="step === 1">
         <basketStepCounter step="one" />
@@ -102,6 +104,10 @@ export default {
     overflow: auto;
 
     @include scrollBar;
+
+    &__no-items {
+        @include center;
+    }
 }
 
 .finish-shopping-button {

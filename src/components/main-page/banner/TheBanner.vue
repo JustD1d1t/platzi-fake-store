@@ -3,7 +3,7 @@
     <div class="banner__left">
       <h1 class="bold">Touch the vintage</h1>
       <h2>Online vintage and electric scooters shop</h2>
-      <the-button class="btn btn-primary btn-big">Shop now</the-button>
+      <router-link to="/catalog" class="btn btn-primary btn-big"> Shop now</router-link>
     </div>
     <div class="banner__right">
       <img :src="bannerScooters" alt="" />
@@ -47,4 +47,5 @@ export default {
       object-fit: contain;
     }
   }
-}</style>
+}
+</style>

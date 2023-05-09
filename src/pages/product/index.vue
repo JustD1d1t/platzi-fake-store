@@ -88,6 +88,9 @@ export default {
         addBag() {
             console.log('addBag')
         }
+    },
+    mounted() {
+        window.scrollTo(0, 0);
     }
 
 }
