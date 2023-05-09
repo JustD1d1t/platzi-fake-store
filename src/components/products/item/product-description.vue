@@ -67,6 +67,9 @@ export default {
     &__name {
         &--link {
             font-size: 1.953rem;
+            @media screen and (min-width: 1023px) and (max-width: 1399px) {
+                font-size: 1.5rem;
+            }
         }
     }
 }

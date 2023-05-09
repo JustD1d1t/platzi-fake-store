@@ -1,9 +1,11 @@
 .bold {
   font-weight: 700;
 }
+
 .text-center {
   text-align: center;
 }
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -15,4 +17,8 @@
 .flex-column {
   display: flex;
   flex-direction: column;
+}
+
+.relative {
+  position: relative;
 }

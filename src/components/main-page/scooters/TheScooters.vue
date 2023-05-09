@@ -7,7 +7,7 @@
     <div class="scooter__info">
       <h3>{{ scooter.name }}</h3>
       <span>{{ scooter.description }}</span>
-      <the-button class="btn btn-primary btn-big">Learn more</the-button>
+      <router-link class="btn btn-primary btn-big" :to="'/product/' + scooter.id">Learn more</router-link>
     </div>
   </div>
 </template>
@@ -26,18 +26,21 @@ export default {
             description:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Euismod amet mattis tortor sed. Integer ipsum, risus, at varius.",
             image: GP125ACGP,
+            id: 1,
           },
           {
             name: "GP 300 LC",
             description:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Euismod amet mattis tortor sed. Integer ipsum, risus, at varius.",
             image: GP300LC,
+            id: 2,
           },
           {
             name: "GT 50 AC",
             description:
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Euismod amet mattis tortor sed. Integer ipsum, risus, at varius.",
             image: GT50AC,
+            id: 3,
           },
         ],
       },
