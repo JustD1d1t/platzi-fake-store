@@ -3,6 +3,7 @@ import IndexPage from "@/pages/index";
 import Catalog from "@/pages/catalog/index";
 import Product from "@/pages/product/index";
 import basket from "@/pages/basket/index";
+import favorite from "@/pages/favorite/index";
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
   {
     path: "/product/:id",
     component: Product,
+  },
+  {
+    path: "/favorite",
+    component: favorite,
   },
   {
     path: "/:catchAll(.*)", // Unrecognized path automatically matches 404

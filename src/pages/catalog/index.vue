@@ -16,10 +16,10 @@
     </div>
     <div class="catalog__items">
       <productsBrick v-for="(product, index) in filteredProducts" :product="product" :key="index"
-        @addedToCart="displayAddedNotification" />
+        @displayNotification="displayNotification" />
     </div>
   </section>
-  <notification :show="addedToCart">Added to cart</notification>
+  <notification :show="notificationVisible">{{ notificationText }}</notification>
 </template>
 
 <script>
@@ -160,7 +160,8 @@ export default {
         }
       },
       query: {},
-      addedToCart: false,
+      notificationVisible: false,
+      notificationText: undefined
     }
   },
   computed: {
@@ -233,10 +234,12 @@ export default {
       this.query = {};
       this.$router.push('/catalog');
     },
-    displayAddedNotification() {
-      this.addedToCart = true;
+    displayNotification(text) {
+      this.notificationVisible = true;
+      this.notificationText = text;
       setTimeout(() => {
-        this.addedToCart = false;
+        this.notificationText = undefined;
+        this.notificationVisible = false;
       }, 1500);
     }
   },

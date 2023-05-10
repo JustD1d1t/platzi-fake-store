@@ -1,11 +1,9 @@
 <template>
     <div class="products-brick">
         <div class="products-brick__top">
-            <the-button class="btn-svg" @click="toggleFavourite">
-                <font-awesome-icon v-if="isInFavorites" icon="fa-solid fa-heart" class="svg-big"
-                    @click="() => removeFromFavorite({ scooterId: product.variants[selectedVariant].id })" />
-                <font-awesome-icon v-else icon="fa-regular fa-heart" class="svg-big"
-                    @click="() => addToFavorite({ scooterId: product.variants[selectedVariant].id })" />
+            <the-button class="btn-svg" @click="handleFavorite">
+                <font-awesome-icon v-if="isInFavorites" icon="fa-solid fa-heart" class="svg-big" />
+                <font-awesome-icon v-else icon="fa-regular fa-heart" class="svg-big" />
             </the-button>
         </div>
         <div class="products-brick__image">
@@ -29,7 +27,7 @@ import productDescription from '@/components/products/item/product-description'
 import productsBrickColors from '@/components/products/products-brick-colors'
 import { mapMutations, mapState } from 'vuex'
 export default {
-    emits: ['addedToCart'],
+    emits: ['displayNotification'],
     components: {
         productDescription,
         productsBrickColors
@@ -53,18 +51,15 @@ export default {
             return this.product.variants.map(variant => variant.color)
         },
         isInFavorites() {
-            return this.favorite.includes(this.product.variants[this.selectedVariant].id)
-        }
+            const currentVariantId = this.product.variants[this.selectedVariant].variantId;
+            return this.favorite[currentVariantId]
+        },
     },
     methods: {
         ...mapMutations('user', [
-            'addToFavorite',
-            'removeFromFavorite',
+            'toggleFavorite',
             'addToCart'
         ]),
-        toggleFavourite() {
-            this.favourite = !this.favourite;
-        },
         changeColor(index) {
             this.selectedVariant = index;
         },
@@ -73,7 +68,14 @@ export default {
                 scooter: this.product,
                 selectedVariant: this.selectedVariant
             });
-            this.$emit("addedToCart")
+            this.$emit("displayNotification", "Added to cart")
+        },
+        handleFavorite() {
+            this.$emit("displayNotification", this.isInFavorites ? 'Removed from favorites' : 'Added to favorites')
+            this.toggleFavorite({
+                scooter: this.product,
+                selectedVariant: this.selectedVariant
+            })
         }
     }
 }

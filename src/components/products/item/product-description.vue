@@ -49,8 +49,8 @@ export default {
             default: false
         },
         id: {
-            type: String,
-            deafult: '',
+            type: Number,
+            deafult: NaN,
         }
     },
     methods: {
