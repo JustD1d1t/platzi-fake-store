@@ -6,7 +6,7 @@
         <div class="products__filters" :ref="name">
             <checkbox v-for="option in filter.options" :key="option" :field="option"
                 @checkboxClicked="this.$emit('setFilters', option.label, name)"
-                :checked="activeQueries[option.label]?.includes(option)" />
+                :checked="activeQueries[name]?.includes(option.label)" />
         </div>
     </div>
     <the-button class="btn btn-primary btn-big btn-fullwidth" @click="this.$emit('saveFilters')">Save filters</the-button>
@@ -27,6 +27,7 @@ export default {
     },
     computed: {
         activeQueries() {
+            console.log(this.$route.query)
             return this.$route.query
         }
     },

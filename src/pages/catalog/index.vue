@@ -259,12 +259,12 @@ export default {
 .catalog {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 50px auto 1fr;
   grid-template-areas: 'filter' 'items';
 
   @media screen and (min-width: 1399px) {
     grid-template-columns: 250px 1fr 1fr 1fr;
-    grid-template-areas: 'filters active-filters active-filters active-filters' 'filters items items items';
+    grid-template-areas: '. active-filters active-filters active-filters' 'filters items items items' ;
   }
 
   &:deep(.products-active-filters) {
