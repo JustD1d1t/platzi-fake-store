@@ -46,9 +46,19 @@ export default {
 <style lang="scss" scoped>
 .favorite {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto 1fr;
     grid-template-areas: 'items';
+    grid-template-columns: 1fr;
     gap: 20px;
+
+    @media screen and (min-width: 767px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    @media screen and (min-width: 1023px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (min-width: 1399px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 </style>
