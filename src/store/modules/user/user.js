@@ -3,7 +3,7 @@ export default {
   namespaced: true,
   state() {
     return {
-      favorite: [],
+      favorite: {},
       addedToCart: {},
       // addedToCart: {
       //   1: {
@@ -82,17 +82,23 @@ export default {
     };
   },
   mutations: {
-    addToFavorite(state, payload) {
-      state.favorite = [...state.favorite, payload.scooterId];
-    },
-    removeFromFavorite(state, payload) {
-      state.favorite = [
-        ...state.favorite.filter((id) => id !== payload.scooterId),
-      ];
+    toggleFavorite(state, payload) {
+      const favoriteVariantId =
+        payload.scooter.variants[payload.selectedVariant].variantId;
+      if (state.favorite[favoriteVariantId]) {
+        delete state.favorite[favoriteVariantId];
+      } else {
+        const favoriteScooter = { ...payload.scooter };
+        favoriteScooter.variants = favoriteScooter.variants.filter(
+          (variant) => variant.variantId === favoriteVariantId
+        );
+        state.favorite[favoriteVariantId] = favoriteScooter;
+      }
     },
     addToCart(state, payload) {
       const scooter = payload.scooter;
-      const scooterId = payload.scooter.variants[payload.selectedVariant].id;
+      const scooterId =
+        payload.scooter.variants[payload.selectedVariant].variantId;
       const isInCart = state.addedToCart[scooterId];
       if (isInCart) {
         state.addedToCart[scooterId].quantity =
@@ -113,7 +119,7 @@ export default {
           description: scooter.variants[payload.selectedVariant].description,
           fastestDeliveryTime:
             scooter.variants[payload.selectedVariant].fastestDeliveryTime,
-          id: scooter.variants[payload.selectedVariant].id,
+          id: scooter.variants[payload.selectedVariant].variantId,
           image: scooter.variants[payload.selectedVariant].image,
           numberOfVotes:
             scooter.variants[payload.selectedVariant].numberOfVotes,
@@ -130,7 +136,6 @@ export default {
       state.addedToCart[id] = scooterToIncreaseQuantity;
     },
     decreaseQuantity(state, payload) {
-      console.log(payload.scooter.id);
       const id = payload.scooter.id;
       const scooterToIncreaseQuantity = { ...state.addedToCart[id] };
       scooterToIncreaseQuantity.quantity =
