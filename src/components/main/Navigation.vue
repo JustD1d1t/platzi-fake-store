@@ -30,7 +30,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import isTablet from "../../helpers/isTablet";
+import isComputer from "../../helpers/isComputer";
 export default {
   data() {
     return {
@@ -102,7 +102,7 @@ export default {
       fetchCategories: "Categories/fetchCategories",
     }),
     handleMenu() {
-      if (isTablet()) {
+      if (!isComputer()) {
         this.$refs.hamburger.classList.toggle("is-active");
         this.$refs.navigation.classList.toggle("is-active");
       }
@@ -134,11 +134,10 @@ export default {
   transition: transform 0.3s linear;
   background-color: $white;
   padding: 5rem 0;
-  box-shadow: 0 0 12px 2px rgba($primary, 0.8);
   z-index: 998;
 
   &.is-active {
-    transform: translateX(-102vw);
+    transform: translateX(-100vw);
 
     @media screen and (min-width: 767px) {
       transform: translateX(-300px);
@@ -175,6 +174,7 @@ export default {
     z-index: 2;
     height: auto !important;
     min-height: unset !important;
+    overflow: hidden;
 
     &.active {
       @media screen and (max-width: 1439px) {

@@ -5,11 +5,6 @@
         <font-awesome-icon icon="fa-solid fa-filter" class="svg-big" />
       </the-button>
     </div>
-    <div class="catalog__toggle-filters catalog__toggle-filters--computer" v-else>
-      <the-button class="btn-svg" @click="toggleFilters">
-        <font-awesome-icon icon="fa-solid fa-filter" class="svg-big" />
-      </the-button>
-    </div>
     <products-active-filters @removeFilter="removeFilter" @resetFilters="resetFilters" />
     <div class="catalog__filters" ref="filters">
       <productsFilters :filters="filters" @setFilters="setFilters" @saveFilters="saveFilters" />

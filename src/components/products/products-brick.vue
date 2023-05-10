@@ -13,7 +13,7 @@
             <product-description :name="product.name" :rating="product.variants[selectedVariant].rating"
                 :number-of-votes="product.variants[selectedVariant].numberOfVotes" :price="product.price"
                 :available-colors="availableColors" :selectedVariant="selectedVariant"
-                :id="product.variants[selectedVariant].id" :name-link="true" @changeColor="changeColor"
+                :id="product.variants[selectedVariant].variantId" :name-link="true" @changeColor="changeColor"
                 @addToCart="addScooterToCart">
                 <products-brick-colors :available-colors="availableColors" :selected-variant="selectedVariant"
                     @changeColor="changeColor" />

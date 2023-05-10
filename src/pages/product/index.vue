@@ -48,8 +48,8 @@ export default {
     },
     computed: {
         product() {
-            const productLookingFor = this.products.find((product) => product.variants.some((variant) => variant.id === this.$route.params.id))
-            const variantLookingFor = productLookingFor.variants.find((variant) => variant.id === this.$route.params.id)
+            const productLookingFor = this.products.find((product) => product.variants.some((variant) => variant.variantId == this.$route.params.id))
+            const variantLookingFor = productLookingFor.variants.find((variant) => variant.variantId == this.$route.params.id)
             return {
                 name: productLookingFor.name,
                 price: productLookingFor.price,
@@ -59,7 +59,7 @@ export default {
                 engineCapacity: productLookingFor.engineCapacity,
                 wheelSize: productLookingFor.wheelSize,
                 seats: productLookingFor.seats,
-                id: variantLookingFor.id,
+                id: variantLookingFor.variantId,
                 rating: variantLookingFor.rating,
                 numberOfVotes: variantLookingFor.numberOfVotes,
                 image: variantLookingFor.image,
