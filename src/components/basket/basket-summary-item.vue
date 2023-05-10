@@ -2,7 +2,7 @@
     <div class="basket-summary-item">
         <div class="basket-summary-item__top">
             <span class="basket-summary-item__name"><b>{{ scooter.name }}</b></span>
-            <span>{{ scooterPrice }}</span>
+            <span>{{ scooter.quantity }} x {{ scooter.price }}</span>
         </div>
         <div class="basket-summary-item__body">
             <div class="basket-summary-item__details">
@@ -27,12 +27,6 @@ export default {
             default: () => { }
         },
     },
-    computed: {
-        scooterPrice() {
-            return (this.scooter.quantity * this.scooter.price).toFixed(2)
-        }
-    }
-
 }
 </script>
 

@@ -55,10 +55,10 @@ export default {
           icon: 'fa-solid fa-person'
         },
         {
-          url: "/",
+          url: "/favorite",
           icon: 'fa-solid fa-heart',
           badge: true,
-          count: this.favorite.length
+          count: this.favoriteLength
         },
         {
           url: "/basket",
@@ -92,6 +92,10 @@ export default {
       }
       return count;
     },
+    favoriteLength() {
+      const favorite = this.favorite;
+      return Object.keys(favorite).length
+    }
   },
   methods: {
     ...mapActions({
