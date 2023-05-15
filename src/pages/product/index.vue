@@ -68,7 +68,7 @@ export default {
                 deliveryTime: variantLookingFor.deliveryTime,
                 topSpeed: productLookingFor.topSpeed,
                 colors: productLookingFor.variants.map(variant => ({
-                    id: variant.id,
+                    id: variant.variantId,
                     color: variant.color,
                     active: variant.id === this.$route.params.id
                 }))

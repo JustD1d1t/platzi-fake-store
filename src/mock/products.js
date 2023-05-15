@@ -226,62 +226,6 @@ export const products = [
     ],
   },
   {
-    name: "ARS 770S",
-    price: 5499,
-    manufacturer: "Yiben",
-    country: "Japan",
-    powerType: "petrol",
-    engineCapacity: "100",
-    wheelSize: "12",
-    seats: "2",
-    topSpeed: "42",
-    id: 8,
-    variants: [
-      {
-        variantId: 15,
-        rating: 5,
-        numberOfVotes: 15,
-        color: "black",
-        image: black,
-      },
-      {
-        variantId: 16,
-        rating: 5,
-        numberOfVotes: 15,
-        color: "red",
-        image: redWhite,
-      },
-    ],
-  },
-  {
-    name: "HY 888Y",
-    price: 3799,
-    manufacturer: "Yamaha",
-    country: "China",
-    powerType: "petrol",
-    engineCapacity: "150",
-    wheelSize: "10",
-    seats: "2",
-    topSpeed: "48",
-    id: 9,
-    variants: [
-      {
-        variantId: 17,
-        rating: 5,
-        numberOfVotes: 15,
-        color: "green",
-        image: green2,
-      },
-      {
-        variantId: 18,
-        rating: 5,
-        numberOfVotes: 15,
-        color: "white",
-        image: white,
-      },
-    ],
-  },
-  {
     name: "TG 300S LC",
     price: 3455.99,
     manufacturer: "Yamaha",
@@ -362,4 +306,90 @@ export const products = [
       },
     ],
   },
+  {
+    name: "ARS 770S",
+    price: 5499,
+    manufacturer: "Yiben",
+    country: "Japan",
+    powerType: "petrol",
+    engineCapacity: "100",
+    wheelSize: "12",
+    seats: "2",
+    topSpeed: "42",
+    id: 8,
+    variants: [
+      {
+        variantId: 15,
+        rating: 5,
+        numberOfVotes: 15,
+        color: "black",
+        image: black,
+      },
+      {
+        variantId: 16,
+        rating: 5,
+        numberOfVotes: 15,
+        color: "red",
+        image: redWhite,
+      },
+    ],
+  },
 ];
+
+const pageSize = 6;
+
+export function getProductsData(offset, filters) {
+  let productsToSend = [...products];
+  if (filters && Object.keys(filters).length !== 0) {
+    if (filters.manufacturer) {
+      productsToSend = productsToSend.filter((product) =>
+        filters.manufacturer.includes(product.manufacturer)
+      );
+    }
+    if (filters.country) {
+      productsToSend = productsToSend.filter((product) =>
+        filters.country.includes(product.country)
+      );
+    }
+    if (filters.powerType) {
+      productsToSend = productsToSend.filter((product) =>
+        filters.powerType.includes(product.powerType)
+      );
+    }
+    if (filters.engineCapacity) {
+      productsToSend = productsToSend.filter((product) =>
+        filters.engineCapacity.includes(product.engineCapacity)
+      );
+    }
+    if (filters.wheelSize) {
+      productsToSend = productsToSend.filter((product) =>
+        filters.wheelSize.includes(product.wheelSize)
+      );
+    }
+    if (filters.seats) {
+      productsToSend = productsToSend.filter((product) =>
+        filters.seats.includes(product.seats)
+      );
+    }
+  }
+
+  let queryString = new URLSearchParams(filters).toString();
+  let nextPageLink = queryString;
+  let prevPageLink = queryString;
+  if (!filters.offset) {
+    if (offset) {
+      nextPageLink += `&offset=${offset + pageSize}`;
+      prevPageLink += `&offset=${offset - pageSize}`;
+    } else {
+      nextPageLink += `&offset=${pageSize}`;
+    }
+  }
+  return {
+    products: [...productsToSend].splice(offset, offset + pageSize),
+    nextPageLink:
+      offset + pageSize < productsToSend.length
+        ? `/catalog?${nextPageLink}`
+        : undefined,
+    prevPageLink: offset === 0 ? undefined : `/catalog?${prevPageLink}`,
+  };
+}
