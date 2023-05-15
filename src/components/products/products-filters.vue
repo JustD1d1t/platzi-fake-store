@@ -27,7 +27,6 @@ export default {
     },
     computed: {
         activeQueries() {
-            console.log(this.$route.query)
             return this.$route.query
         }
     },

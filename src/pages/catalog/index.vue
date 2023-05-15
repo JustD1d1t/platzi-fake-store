@@ -5,14 +5,16 @@
         <font-awesome-icon icon="fa-solid fa-filter" class="svg-big" />
       </the-button>
     </div>
-    <products-active-filters @removeFilter="removeFilter" @resetFilters="resetFilters" />
+    <products-active-filters @removeFilter="removeFilter" @resetFilters="resetFilters" :filters="filters" />
     <div class="catalog__filters" ref="filters">
       <productsFilters :filters="filters" @setFilters="setFilters" @saveFilters="saveFilters" />
     </div>
     <div class="catalog__items">
-      <productsBrick v-for="(product, index) in filteredProducts" :product="product" :key="index"
+      <productsBrick v-for="(product, index) in products" :product="product" :key="index"
         @displayNotification="displayNotification" />
     </div>
+    <pagination :nextDisabled="nextPageLinkDisabled" :prevDisabled="prevPageLinkDisabled" @nextPage="getNextScooters"
+      @prevPage="getPrevScooters" />
   </section>
   <notification :show="notificationVisible">{{ notificationText }}</notification>
 </template>
@@ -21,8 +23,10 @@
 import productsBrick from '../../components/products/products-brick';
 import productsFilters from '@/components/products/products-filters'
 import productsActiveFilters from '@/components/products/products-active-filters'
-import { products } from '../../mock/products';
+import { getProductsData } from '../../mock/products';
 import isComputer from '../../helpers/isComputer';
+
+const pageSize = 6;
 
 export default {
   components: {
@@ -32,7 +36,7 @@ export default {
   },
   data() {
     return {
-      products: products,
+      products: [],
       filters: {
         manufacturer: {
           name: 'Manufacturer',
@@ -156,39 +160,24 @@ export default {
       },
       query: {},
       notificationVisible: false,
-      notificationText: undefined
+      notificationText: undefined,
+      nextPageLink: '',
+      prevPageLink: '',
     }
   },
   computed: {
-    filteredProducts() {
-      const filters = { ...this.$route.query }
-      if (filters && Object.keys(filters).length === 0) {
-        return this.products
-      }
-      let filteredProducts = [...this.products];
-      if (filters.manufacturer) {
-        filteredProducts = filteredProducts.filter(product => filters.manufacturer.includes(product.manufacturer))
-      }
-      if (filters.country) {
-        filteredProducts = filteredProducts.filter(product => filters.country.includes(product.country))
-      }
-      if (filters.powerType) {
-        filteredProducts = filteredProducts.filter(product => filters.powerType.includes(product.powerType))
-      }
-      if (filters.engineCapacity) {
-        filteredProducts = filteredProducts.filter(product => filters.engineCapacity.includes(product.engineCapacity))
-      }
-      if (filters.wheelSize) {
-        filteredProducts = filteredProducts.filter(product => filters.wheelSize.includes(product.wheelSize))
-      }
-      if (filters.seats) {
-        filteredProducts = filteredProducts.filter(product => filters.seats.includes(product.seats))
-      }
-      return filteredProducts;
-    },
     isComputerDevice() {
       return isComputer();
     },
+    nextPageLinkDisabled() {
+      return this.nextPageLink === undefined
+    },
+    prevPageLinkDisabled() {
+      return this.prevPageLink === undefined
+    },
+    offset() {
+      return this.$route.query.offset ? Number(this.$route.query.offset) : 0;
+    }
   },
   methods: {
     setFilters(label, type) {
@@ -208,6 +197,10 @@ export default {
     saveFilters() {
       const query = this.query;
       this.$router.push({ query })
+      const resPagination = getProductsData(0, this.query)
+      this.nextPageLink = resPagination.nextPageLink;
+      this.prevPageLink = resPagination.prevPageLink;
+      this.products = resPagination.products;
     },
     toggleFilters() {
       document.body.classList.toggle('overflow-hidden')
@@ -236,6 +229,23 @@ export default {
         this.notificationText = undefined;
         this.notificationVisible = false;
       }, 1500);
+    },
+    getNextScooters() {
+      this.$router.push(this.nextPageLink)
+      const filters = { ...this.$route.query }
+      const resPagination = getProductsData(this.offset + pageSize, filters);
+      this.nextPageLink = resPagination.nextPageLink;
+      this.prevPageLink = resPagination.prevPageLink;
+      this.products = resPagination.products;
+    },
+    getPrevScooters() {
+      this.$router.push(this.prevPageLink)
+      const filters = { ...this.$route.query }
+      const resPagination = getProductsData(this.offset - pageSize, filters);
+
+      this.nextPageLink = resPagination.nextPageLink;
+      this.prevPageLink = resPagination.prevPageLink;
+      this.products = resPagination.products;
     }
   },
   watch: {
@@ -243,6 +253,11 @@ export default {
     }
   },
   mounted() {
+    const filters = { ...this.$route.query }
+    const resPagination = getProductsData(this.offset, filters)
+    this.nextPageLink = resPagination.nextPageLink;
+    this.prevPageLink = resPagination.prevPageLink;
+    this.products = resPagination.products;
     this.query = { ...this.$route.query }
     window.addEventListener("resize", () => {
       if (window.innerWidth > 1023) {
@@ -262,11 +277,15 @@ export default {
 
   @media screen and (min-width: 1399px) {
     grid-template-columns: 250px 1fr 1fr 1fr;
-    grid-template-areas: '. active-filters active-filters active-filters' 'filters items items items' ;
+    grid-template-areas: '. active-filters active-filters active-filters' 'filters items items items' 'filters pagination pagination pagination';
   }
 
   &:deep(.products-active-filters) {
     grid-area: active-filters
+  }
+
+  &:deep(.pagination) {
+    grid-area: pagination
   }
 
   &__filters {

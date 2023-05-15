@@ -10,21 +10,29 @@
 
 <script>
 export default {
+    props: {
+        filters: {
+            type: Object,
+            default: () => { }
+        }
+    },
     computed: {
         formattedQueries() {
             const q = this.$route.query;
             const formattedQueries = [];
             for (const key in q) {
-                if (Array.isArray(q[key])) {
-                    formattedQueries.push(...q[key].map(query => ({
-                        type: key,
-                        value: query,
-                    })))
-                } else {
-                    formattedQueries.push({
-                        type: key,
-                        value: q[key]
-                    })
+                if (this.filters[key]) {
+                    if (Array.isArray(q[key])) {
+                        formattedQueries.push(...q[key].map(query => ({
+                            type: key,
+                            value: query,
+                        })))
+                    } else {
+                        formattedQueries.push({
+                            type: key,
+                            value: q[key]
+                        })
+                    }
                 }
             }
             return formattedQueries

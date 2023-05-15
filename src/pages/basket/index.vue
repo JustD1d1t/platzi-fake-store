@@ -86,7 +86,6 @@ export default {
     },
     methods: {
         setStep(step) {
-            console.log('aa')
             this.step = step
         },
         activateCode(code) {
