@@ -221,6 +221,10 @@ export default {
     resetFilters() {
       this.query = {};
       this.$router.push('/catalog');
+      const resPagination = getProductsData(0, {});
+      this.nextPageLink = resPagination.nextPageLink;
+      this.prevPageLink = resPagination.prevPageLink;
+      this.products = resPagination.products;
     },
     displayNotification(text) {
       this.notificationVisible = true;
