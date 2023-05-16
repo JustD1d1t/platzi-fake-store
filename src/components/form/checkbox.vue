@@ -1,8 +1,9 @@
 <template>
     <div class="form-field form-field--checkbox">
         <label :for="field.label">{{ field.label }}
-            <input type="checkbox" :name="field.label" :id="field.label" :checked="checked"
-                @click="this.$emit('checkboxClicked')">
+            <input type="checkbox" :name="field.label" :required="field.required" :id="field.label"
+                :checked="modelValue ? modelValue : checked" @click="this.$emit('checkboxClicked')"
+                @change="$emit('update:modelValue', $event.target.checked)">
             <span class="checkmark"></span>
         </label>
     </div>
@@ -17,6 +18,10 @@ export default {
             required: true,
         },
         checked: {
+            type: Boolean,
+            default: false,
+        },
+        modelValue: {
             type: Boolean,
             default: false,
         }

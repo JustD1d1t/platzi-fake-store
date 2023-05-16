@@ -51,7 +51,7 @@ export default {
           icon: 'fa-solid fa-phone'
         },
         {
-          url: "/",
+          url: "/user",
           icon: 'fa-solid fa-person'
         },
         {
