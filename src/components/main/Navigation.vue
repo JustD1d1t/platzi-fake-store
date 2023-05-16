@@ -304,8 +304,10 @@ export default {
       }
     }
 
-    &:hover {
-      cursor: pointer;
+    @media screen and (min-width: 1399px) {
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     &>span {

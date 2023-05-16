@@ -3,25 +3,25 @@
         <form @submit.prevent="submit" class="login-form">
             <the-input :field="{
                 label: 'E-mail',
-                showLabel: true,
                 type: 'e-mail',
                 required: true,
                 error: errors.email
-            }" v-model="email" />
+            }" v-model="email" :show-label="true" />
             <the-input :field="{
                 label: 'Password',
-                showLabel: true,
                 type: 'password',
                 required: true,
                 error: errors.password
-            }" v-model="password" />
+            }" v-model="password" :show-label="true" />
             <checkbox :field="{
                 label: 'I have read and gree to the Terms',
-                required: true,
+                error: errors.checkbox
             }" v-model="terms" />
             <div class="login-form__actions">
-                <the-button class="btn btn-secondary">Change to register</the-button>
-                <the-button class="btn btn-primary">Login</the-button>
+                <the-button class="btn btn-secondary login-form__register" @click.prevent="changeToRegister">
+                    Change to register
+                </the-button>
+                <the-button class="btn btn-primary login-form__submit">Login</the-button>
             </div>
         </form>
     </box>
@@ -29,6 +29,8 @@
 
 <script>
 import { users } from '@/mock/users'
+import { validateEmail, validatePassword, validateCheckbox } from "@/helpers/validators"
+import { mapMutations } from 'vuex';
 
 export default {
     data() {
@@ -54,9 +56,11 @@ export default {
         }
     },
     methods: {
+        ...mapMutations('user', ['setUserMail']),
         submit() {
-            this.validateEmail();
-            this.validatePassword();
+            validateEmail(this.email, this.errors);
+            validatePassword(this.password, this.errors);
+            validateCheckbox(this.terms, this.errors);
             if (Object.keys(this.errors).length) {
                 return;
             }
@@ -66,29 +70,14 @@ export default {
             }
             if (user.password === this.password) {
                 localStorage.setItem("jwt", 'test')
+                this.setUserMail(this.email)
                 this.$router.push({ name: "account" })
             } else {
                 return this.errors.password = "Wrong password. Try 'Test123'"
             }
         },
-        validateEmail() {
-            const isMailValid = String(this.email)
-                .toLowerCase()
-                .match(
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                );
-            if (!isMailValid) {
-                this.errors.email = "Type correct email"
-            } else {
-                delete this.errors.email;
-            }
-        },
-        validatePassword() {
-            if (this.password.length < 6) {
-                this.errors.password = "Password is not strong enough"
-            } else {
-                delete this.errors.password
-            }
+        changeToRegister() {
+            this.$router.push({ name: "register" })
         }
     }
 }
@@ -96,9 +85,23 @@ export default {
 
 <style lang="scss" scoped>
 .login-form {
+
+    &__register {
+        order: 2;
+
+        @media screen and (min-width: 767px) {
+            order: 0;
+        }
+    }
+
     &__actions {
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
+
+        @media screen and (min-width: 767px) {
+            flex-direction: row;
+        }
     }
 }
 </style>

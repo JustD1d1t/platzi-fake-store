@@ -18,10 +18,12 @@ button {
     color: $primary !important;
     background-color: $secondary !important;
 
-    &:hover {
-      color: $secondary !important;
-      background-color: $primary !important;
-      @include boxShadowHover;
+    @media screen and (min-width: 1399px) {
+      &:hover {
+        color: $secondary !important;
+        background-color: $primary !important;
+        @include boxShadowHover;
+      }
     }
   }
 
@@ -29,10 +31,12 @@ button {
     color: $secondary;
     background-color: $primary;
 
-    &:hover {
-      color: $primary;
-      background-color: $secondary;
-      @include boxShadowHover;
+    @media screen and (min-width: 1399px) {
+      &:hover {
+        color: $primary;
+        background-color: $secondary;
+        @include boxShadowHover;
+      }
     }
   }
 
@@ -53,8 +57,10 @@ button {
       padding: 0;
     }
 
-    &:hover {
-      transform: scale(1.1);
+    @media screen and (min-width: 1399px) {
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 }

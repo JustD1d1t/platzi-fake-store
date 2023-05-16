@@ -1,14 +1,11 @@
 <template>
     <section class="login">
-        <h2>
-            Login
-        </h2>
         <login-form />
     </section>
 </template>
   
 <script>
-import loginForm from '@/components/login/login-form'
+import loginForm from '@/components/user/forms/login-form'
 export default {
     components: {
         loginForm
@@ -22,15 +19,16 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    &__form-actions {
-        display: flex;
-        justify-content: space-between;
-    }
+    flex-grow: 1;
+    justify-content: center;
 
     &::v-deep(.box) {
         margin: 0 auto;
-        width: 50%;
+        width: 100%;
+
+        @media screen and (min-width: 1023px) {
+            width: 50%;
+        }
     }
 
 }

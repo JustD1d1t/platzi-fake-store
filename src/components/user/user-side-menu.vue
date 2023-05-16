@@ -1,6 +1,7 @@
 <template>
     <aside class="user-menu">
         <router-link v-for="item in menuItems" :key="item.label" :to="item.link">{{ item.label }}</router-link>
+        <button class="anchor" @click="logout">Logout</button>
     </aside>
 </template>
 
@@ -25,11 +26,13 @@ export default {
                     label: 'Orders',
                     link: '/user/orders'
                 },
-                {
-                    label: 'Logout',
-                    link: '/user/logout'
-                },
             ]
+        }
+    },
+    methods: {
+        logout() {
+            localStorage.removeItem('jwt');
+            this.$router.push("/")
         }
     }
 }

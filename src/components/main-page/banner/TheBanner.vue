@@ -41,6 +41,7 @@ export default {
   }
 
   &__right {
+    height: 450px;
     img {
       width: 100%;
       height: 100%;

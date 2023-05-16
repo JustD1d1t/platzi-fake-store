@@ -34,10 +34,12 @@ button {
   color: $primary;
   background-color: $secondary;
 
-  &:hover {
-    color: $secondary;
-    background-color: $primary;
-    @include boxShadowHover;
+  @media screen and (min-width: 1399px) {
+    &:hover {
+      color: $secondary;
+      background-color: $primary;
+      @include boxShadowHover;
+    }
   }
 }
 
@@ -45,10 +47,12 @@ button {
   color: $secondary;
   background-color: $primary;
 
-  &:hover {
-    color: $primary;
-    background-color: $secondary;
-    @include boxShadowHover;
+  @media screen and (min-width: 1399px) {
+    &:hover {
+      color: $primary;
+      background-color: $secondary;
+      @include boxShadowHover;
+    }
   }
 }
 
@@ -82,7 +86,7 @@ button {
     padding: 0;
   }
 
-  @media screen and (min-width: 1439px) {
+  @media screen and (min-width: 1399px) {
     &:hover {
       transform: scale(1.1);
     }

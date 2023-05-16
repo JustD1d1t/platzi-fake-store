@@ -1,11 +1,11 @@
 <template>
     <div class="form-field form-field--checkbox">
         <label :for="field.label">{{ field.label }}
-            <input type="checkbox" :name="field.label" :required="field.required" :id="field.label"
-                :checked="modelValue ? modelValue : checked" @click="this.$emit('checkboxClicked')"
-                @change="$emit('update:modelValue', $event.target.checked)">
+            <input type="checkbox" :name="field.label" :id="field.label" :checked="modelValue ? modelValue : checked"
+                @click="this.$emit('checkboxClicked')" @change="$emit('update:modelValue', $event.target.checked)">
             <span class="checkmark"></span>
         </label>
+        <span v-if="field.error" class="form-field__error">{{ field.error }}</span>
     </div>
 </template>
 
@@ -40,7 +40,8 @@ export default {
     -ms-user-select: none;
     user-select: none;
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 4px;
+    padding-bottom: 16px;
 
     & label {
         cursor: pointer;
@@ -89,6 +90,15 @@ export default {
                 transform: rotate(45deg);
             }
         }
+    }
+
+    &__error {
+        color: $red;
+        font-size: 14px;
+        line-height: 14px;
+        position: absolute;
+        top: calc(100% - 14px);
+        left: 4px;
     }
 
 

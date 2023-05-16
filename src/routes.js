@@ -11,7 +11,6 @@ import password from "@/pages/user/password";
 import account from "@/pages/user/account";
 import favorites from "@/pages/user/favorites";
 import orders from "@/pages/user/orders";
-import logout from "@/pages/user/logout";
 
 import auth from "./middleware/auth";
 import isNotLoggedIn from "@/middleware/isNotLoggedIn";
@@ -72,14 +71,6 @@ const routes = [
         path: "/user/orders",
         name: "orders",
         component: orders,
-        meta: {
-          middleware: [auth],
-        },
-      },
-      {
-        path: "/user/logout",
-        name: "logout",
-        component: logout,
         meta: {
           middleware: [auth],
         },
