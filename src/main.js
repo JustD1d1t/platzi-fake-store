@@ -49,6 +49,7 @@ import radio from "@/components/form/radio";
 import notification from "@/components/UI/notification";
 import badge from "@/components/UI/badge";
 import pagination from "@/components/UI/pagination";
+import box from "@/components/UI/box";
 
 const app = createApp(App);
 
@@ -61,6 +62,7 @@ app.component("radio", radio);
 app.component("notification", notification);
 app.component("badge", badge);
 app.component("pagination", pagination);
+app.component("box", box);
 app.use(VueAxios, axios);
 
 app.use(store);

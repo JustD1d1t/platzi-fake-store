@@ -51,7 +51,7 @@ export default {
           icon: 'fa-solid fa-phone'
         },
         {
-          url: "/",
+          url: "/user",
           icon: 'fa-solid fa-person'
         },
         {
@@ -304,8 +304,10 @@ export default {
       }
     }
 
-    &:hover {
-      cursor: pointer;
+    @media screen and (min-width: 1399px) {
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     &>span {

@@ -36,11 +36,22 @@ body {
   display: flex;
   flex-direction: column;
 }
-a {
+a,
+button.anchor {
   color: $primary;
   transition: color 0.15s linear;
-  &:hover {
-    color: $secondary;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: auto;
+  font-size: 1rem;
+  padding: 0;
+  line-height: 1.75;
+  text-align: left;
+  @media screen and (min-width: 1399px) {
+    &:hover {
+      color: $secondary;
+    }
   }
 }
 

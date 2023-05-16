@@ -28,6 +28,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 24px;
 
     &__prev,
     &__next {
@@ -37,8 +38,10 @@ export default {
         transition: color 0.15s linear;
         cursor: pointer;
 
-        &:hover {
-            color: $secondary;
+        @media screen and (min-width: 1399px) {
+            &:hover {
+                color: $secondary;
+            }
         }
 
         &.disabled {

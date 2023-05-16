@@ -277,7 +277,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: 50px auto 1fr;
-  grid-template-areas: 'filter' 'items';
+  grid-template-areas: 'filter' 'items' 'pagination';
 
   @media screen and (min-width: 1399px) {
     grid-template-columns: 250px 1fr 1fr 1fr;
@@ -324,6 +324,11 @@ export default {
     grid-template-rows: auto auto 1fr;
     gap: 35px 52px;
 
+    @media screen and (min-width: 767px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto auto 1fr;
+      gap: 35px 52px;
+    }
     @media screen and (min-width: 1023px) {
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: auto auto 1fr;
