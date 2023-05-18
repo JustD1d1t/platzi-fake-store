@@ -1,20 +1,12 @@
 <template>
     <section class="account">
-        <back-user-arrow />
-        <h1 class="text-center">Account data</h1>
-        <account-form />
+        <h2>loyalty</h2>
     </section>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import accountForm from '@/components/user/forms/account-form'
-import backUserArrow from '@/components/user/back-user-arrow'
 export default {
-    components: {
-        accountForm,
-        backUserArrow
-    },
     data() {
         return {
         }
@@ -32,12 +24,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.account {
-
-
-    &::v-deep(.box) {
-        margin: 0 auto;
-        width: 100%;
-    }
-}
+.account {}
 </style>

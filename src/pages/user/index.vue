@@ -1,19 +1,14 @@
 <template>
     <section class="user">
-        <div class="user__side-menu">
-            <user-side-menu />
-        </div>
-        <div class="user__content">
-            <router-view></router-view>
-        </div>
+        <user-menu />
     </section>
 </template>
 
 <script>
-import userSideMenu from '../../components/user/user-side-menu';
+import userMenu from '@/components/user/user-menu'
 export default {
     components: {
-        userSideMenu
+        userMenu
     },
 }
 </script>
@@ -21,12 +16,8 @@ export default {
 <style lang="scss" scoped>
 .user {
     display: flex;
-
-    &__side-menu {}
-
-    &__content {
-        flex-grow: 1;
-        margin-left: 16px;
-    }
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
 }
 </style>

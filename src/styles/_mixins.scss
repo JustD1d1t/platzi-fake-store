@@ -28,6 +28,16 @@
     }
   }
 }
+
+@mixin hoverChildColorSVG {
+  transition: color 0.15s linear;
+  @media screen and (min-width: 1439px) {
+    &:hover svg {
+      color: $secondary;
+    }
+  }
+}
+
 @mixin hoverChildSVG {
   @media screen and (min-width: 1439px) {
     &:hover svg {

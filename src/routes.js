@@ -11,6 +11,10 @@ import password from "@/pages/user/password";
 import account from "@/pages/user/account";
 import favorites from "@/pages/user/favorites";
 import orders from "@/pages/user/orders";
+import promocodes from "@/pages/user/promocodes"
+import addresses from "@/pages/user/addresses"
+import loyalty from "@/pages/user/loyalty"
+import announcements from "@/pages/user/announcements"
 
 import auth from "./middleware/auth";
 import isNotLoggedIn from "@/middleware/isNotLoggedIn";
@@ -41,41 +45,70 @@ const routes = [
     path: "/user",
     component: user,
     name: "user",
-    redirect: "/user/account",
-    children: [
-      {
-        path: "/user/account",
-        name: "account",
-        component: account,
-        meta: {
-          middleware: [auth],
-        },
-      },
-      {
-        path: "/user/password",
-        name: "password",
-        component: password,
-        meta: {
-          middleware: [auth],
-        },
-      },
-      {
-        path: "/user/favorites",
-        name: "favorites",
-        component: favorites,
-        meta: {
-          middleware: [auth],
-        },
-      },
-      {
-        path: "/user/orders",
-        name: "orders",
-        component: orders,
-        meta: {
-          middleware: [auth],
-        },
-      },
-    ],
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/user/account",
+    name: "account",
+    component: account,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/user/password",
+    name: "password",
+    component: password,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/user/favorites",
+    name: "favorites",
+    component: favorites,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/user/orders",
+    name: "orders",
+    component: orders,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/user/promocodes",
+    name: "promocodes",
+    component: promocodes,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/user/addresses",
+    name: "addresses",
+    component: addresses,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/user/loyalty",
+    name: "loyalty",
+    component: loyalty,
+    meta: {
+      middleware: [auth],
+    },
+  },
+  {
+    path: "/user/announcements",
+    name: "announcements",
+    component: announcements,
     meta: {
       middleware: [auth],
     },

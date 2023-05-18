@@ -1,14 +1,18 @@
 <template>
     <section class="password">
+        <back-user-arrow />
+        <h1 class="text-center">Change password</h1>
         <password-form />
     </section>
 </template>
   
 <script>
 import passwordForm from '@/components/user/forms/password-form'
+import backUserArrow from '@/components/user/back-user-arrow'
 export default {
     components: {
-        passwordForm
+        passwordForm,
+        backUserArrow
     },
 
 }
@@ -18,7 +22,6 @@ export default {
 .password {
     display: flex;
     flex-direction: column;
-    align-items: center;
 
     &::v-deep(.box) {
         margin: 0 auto;
