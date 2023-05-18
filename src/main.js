@@ -21,6 +21,14 @@ import {
   faTornado,
   faLaptop,
   faFilter,
+  faLocationDot,
+  faLock,
+  faBagShopping,
+  faRightFromBracket,
+  faTag,
+  faStar,
+  faBell,
+  faArrowLeft
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as heartRegular } from "@fortawesome/free-regular-svg-icons";
 
@@ -38,7 +46,15 @@ library.add(
   faTornado,
   faLaptop,
   heartRegular,
-  faFilter
+  faFilter,
+  faLocationDot,
+  faLock,
+  faBagShopping,
+  faRightFromBracket,
+  faTag,
+  faStar,
+  faBell,
+  faArrowLeft
 );
 
 import TheButton from "../src/components/UI/TheButton.vue";

@@ -1,7 +1,7 @@
 <template>
   <div class="form-field form-field--input" :class="{ half: field.width === 'half', full: field.width === 'full' }">
     <label :for="field.label" v-if="showLabel">{{ field.label }}</label>
-    <input :type="field.type" :placeholder="field.label" :id="field.label" :required="field.required"
+    <input :type="field.type" :placeholder="field.label" :id="field.label" :required="field.required" :value="field.value"
       :disabled="field.disabled" :pattern="field.pattern" @input="$emit('update:modelValue', $event.target.value)">
     <span v-if="field.error" class="form-field__error">{{ field.error }}</span>
   </div>
