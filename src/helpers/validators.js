@@ -29,8 +29,8 @@ export function validateCheckbox(checked, errors) {
 
 export function validateConfirmPassword(password, passwordToConfirm, errors) {
   if (password !== passwordToConfirm) {
-    errors.confirmPassword = "Passwords are different";
+    errors.confirmNewPassword = "Passwords are different";
   } else {
-    delete errors.confirmPassword;
+    delete errors.confirmNewPassword;
   }
 }

@@ -6,9 +6,11 @@ export default {
       email: "test@example.com",
       favorite: {},
       addedToCart: {},
+      // user: {},
       user: {
         email: "test@example.com",
         password: "Test123",
+        passwordConfirm: "Test1234",
         firstName: "Dawid",
         lastName: "Starzyk",
         street: "Testowa",

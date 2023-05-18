@@ -1,30 +1,12 @@
 <template>
     <box>
         <form @submit.prevent="submit" class="register-form">
-            <the-input :field="{
-                label: 'E-mail',
-                type: 'e-mail',
-                required: true,
-                error: errors.email,
-                disabled: notificationVisible
-            }" v-model="email" :show-label="true" />
-            <the-input :field="{
-                label: 'Password',
-                type: 'password',
-                required: true,
-                error: errors.password,
-                disabled: notificationVisible
-            }" v-model="password" :show-label="true" />
-            <the-input :field="{
-                label: 'Password confirm',
-                type: 'password',
-                required: true,
-                error: errors.confirmPassword,
-                disabled: notificationVisible
-            }" v-model="passwordConfirm" :show-label="true" />
+            <the-input v-for="field in fields" :field="field" :key="field.label" v-model="fields[field.name].value"
+                :show-label="true" :error="errors[field.name]" />
             <checkbox :field="{
                 label: 'I have read and gree to the Terms',
                 required: true,
+                error: errors.checkbox
             }" v-model="terms" />
             <div class="register-form__actions">
                 <the-button class="btn btn-secondary register-form__login" @click.prevent="changeToLogin">
@@ -41,47 +23,63 @@
 
 <script>
 import { users } from '@/mock/users'
-import { validateEmail, validatePassword, validateConfirmPassword } from "@/helpers/validators"
+import { validateEmail, validatePassword, validateConfirmPassword, validateCheckbox } from "@/helpers/validators"
+import { mapState } from 'vuex'
 
 export default {
     data() {
         return {
-            email: '',
-            password: '',
-            passwordConfirm: '',
             terms: false,
             errors: {},
             notificationVisible: false,
-            fields: [
-                {
+        }
+    },
+    computed: {
+        ...mapState('user', ['user']),
+        fields() {
+            return {
+                email: {
                     label: 'E-mail',
-                    showLabel: true,
+                    name: 'email',
                     type: 'e-mail',
                     required: true,
+                    value: '',
+                    disabled: this.notificationVisible,
                 },
-                {
-                    label: 'Passowrd',
-                    showLabel: true,
+                password: {
+                    label: 'Password',
+                    name: 'password',
                     type: 'password',
                     required: true,
-                }
-            ]
+                    value: '',
+                    disabled: this.notificationVisible,
+                },
+                confirmPassword: {
+                    label: 'Confirm  password',
+                    name: 'confirmPassword',
+                    type: 'password',
+                    required: true,
+                    value: '',
+                    disabled: this.notificationVisible,
+                },
+            }
         }
     },
     methods: {
         submit() {
-            validateEmail(this.email, this.errors);
-            validatePassword(this.password, this.errors);
-            validateConfirmPassword(this.password, this.passwordConfirm, this.errors);
+            validateEmail(this.fields.email.value, this.errors);
+            validatePassword(this.fields.password.value, this.errors);
+            validateConfirmPassword(this.fields.password.value, this.fields.confirmPassword.value, this.errors);
+            validateCheckbox(this.terms, this.errors);
             if (Object.keys(this.errors).length) {
                 return;
             }
-            const user = users.find(user => user.email === this.email)
+            const user = users.find(user => user.email === this.fields.email.value)
             if (!user) {
                 users.push(
                     {
-                        email: this.email,
-                        password: this.password,
+                        email: this.fields.email.value,
+                        password: this.fields.password.value,
                     },
                 )
                 this.displayNotification()

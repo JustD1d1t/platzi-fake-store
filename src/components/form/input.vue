@@ -3,7 +3,7 @@
     <label :for="field.label" v-if="showLabel">{{ field.label }}</label>
     <input :type="field.type" :placeholder="field.label" :id="field.label" :required="field.required" :value="field.value"
       :disabled="field.disabled" :pattern="field.pattern" @input="$emit('update:modelValue', $event.target.value)">
-    <span v-if="field.error" class="form-field__error">{{ field.error }}</span>
+    <span v-if="error" class="form-field__error">{{ error }}</span>
   </div>
 </template>
 
@@ -22,6 +22,10 @@ export default {
       type: String,
       default: '',
       required: true
+    },
+    error: {
+      type: String,
+      default: '',
     }
   }
 }

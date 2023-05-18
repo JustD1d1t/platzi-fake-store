@@ -1,18 +1,8 @@
 <template>
     <box>
         <form @submit.prevent="submit" class="login-form">
-            <the-input :field="{
-                label: 'E-mail',
-                type: 'e-mail',
-                required: true,
-                error: errors.email
-            }" v-model="email" :show-label="true" />
-            <the-input :field="{
-                label: 'Password',
-                type: 'password',
-                required: true,
-                error: errors.password
-            }" v-model="password" :show-label="true" />
+            <the-input v-for="field in fields" :field="field" :key="field.label" v-model="fields[field.name].value"
+                :show-label="true" :error="errors[field.name]" />
             <checkbox :field="{
                 label: 'I have read and gree to the Terms',
                 error: errors.checkbox
@@ -30,50 +20,58 @@
 <script>
 import { users } from '@/mock/users'
 import { validateEmail, validatePassword, validateCheckbox } from "@/helpers/validators"
-import { mapMutations } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
     data() {
         return {
-            email: '',
-            password: '',
             terms: false,
             errors: {},
-            fields: [
-                {
+        }
+    },
+    computed: {
+        ...mapState('user', ['user']),
+        fields() {
+            return {
+                email: {
                     label: 'E-mail',
-                    showLabel: true,
+                    name: 'email',
                     type: 'e-mail',
                     required: true,
+                    // value: this.user.email,
+                    value: 'test@example.com',
+                    disabled: false,
                 },
-                {
-                    label: 'Passowrd',
-                    showLabel: true,
+                password: {
+                    label: 'Password',
+                    name: 'password',
                     type: 'password',
                     required: true,
+                    // value: this.user.password,
+                    value: 'Test123',
+                    disabled: false,
                 }
-            ]
+            }
         }
     },
     methods: {
         ...mapMutations('user', ['setUserMail']),
         submit() {
-            validateEmail(this.email, this.errors);
-            validatePassword(this.password, this.errors);
+            validateEmail(this.fields.email.value, this.fields.email);
+            validatePassword(this.fields.password.value, this.fields.password);
             validateCheckbox(this.terms, this.errors);
-            if (Object.keys(this.errors).length) {
-                return;
-            }
-            const user = users.find(user => user.email === this.email)
+            const user = users.find(user => user.email === this.fields.email.value)
             if (!user) {
                 return this.errors.email = "Cannot find user with this email. Try 'test@example.com'"
-            }
-            if (user.password === this.password) {
-                localStorage.setItem("jwt", 'test')
-                this.setUserMail(this.email)
-                this.$router.push({ name: "account" })
             } else {
-                return this.errors.password = "Wrong password. Try 'Test123'"
+                this.errors.email = null
+            }
+            if (user.password === this.fields.password.value) {
+                localStorage.setItem("jwt", 'test')
+                this.setUserMail(this.fields.email.value)
+                this.$router.push({ name: "user" })
+            } else {
+                this.errors.password = "Wrong password. Try 'Test123'"
             }
         },
         changeToRegister() {
