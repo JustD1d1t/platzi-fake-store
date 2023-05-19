@@ -63,16 +63,20 @@ export default {
             const user = users.find(user => user.email === this.fields.email.value)
             if (!user) {
                 return this.errors.email = "Cannot find user with this email. Try 'test@example.com'"
-            } else {
-                this.errors.email = null
+            } else if (this.errors.email) {
+                delete this.errors.email
             }
-            if (user.password === this.fields.password.value) {
-                localStorage.setItem("jwt", 'test')
-                this.setUserMail(this.fields.email.value)
-                this.$router.push({ name: "user" })
-            } else {
+            if (user && user.password !== this.fields.password.value) {
                 this.errors.password = "Wrong password. Try 'Test123'"
+            } else if (user && user.password === this.fields.password.value) {
+                delete this.errors.password
             }
+            if (Object.keys(this.errors).length) {
+                return
+            }
+            localStorage.setItem("jwt", 'test')
+            this.setUserMail(this.fields.email.value)
+            this.$router.push({ name: "user" })
         },
         changeToRegister() {
             this.$router.push({ name: "register" })

@@ -12,8 +12,8 @@
       </div>
       <ul class="navigation__user-actions">
         <li v-for="link in actionLinks" :key="link.icon">
-          <router-link :to="link.url" :class="{ relative: link.badge }"><font-awesome-icon :icon="`fa-solid ${link.icon}`"
-              class="svg-medium" />
+          <router-link :to="link.url" :class="{ relative: link.badge }" @click="handleMenu"><font-awesome-icon
+              :icon="`fa-solid ${link.icon}`" class="svg-medium" />
             <badge v-if="link.badge">{{ link.count }}</badge>
           </router-link>
 
