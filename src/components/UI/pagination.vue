@@ -43,11 +43,6 @@ export default {
                 color: $secondary;
             }
         }
-
-        &.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
     }
 }
 </style>

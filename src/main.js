@@ -28,7 +28,9 @@ import {
   faTag,
   faStar,
   faBell,
-  faArrowLeft
+  faArrowLeft,
+  faTrash,
+  faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as heartRegular } from "@fortawesome/free-regular-svg-icons";
 
@@ -54,7 +56,9 @@ library.add(
   faTag,
   faStar,
   faBell,
-  faArrowLeft
+  faArrowLeft,
+  faTrash,
+  faCirclePlus
 );
 
 import TheButton from "../src/components/UI/TheButton.vue";
@@ -66,6 +70,7 @@ import notification from "@/components/UI/notification";
 import badge from "@/components/UI/badge";
 import pagination from "@/components/UI/pagination";
 import box from "@/components/UI/box";
+import modal from "@/components/main/modal";
 
 const app = createApp(App);
 
@@ -79,6 +84,7 @@ app.component("notification", notification);
 app.component("badge", badge);
 app.component("pagination", pagination);
 app.component("box", box);
+app.component("modal", modal);
 app.use(VueAxios, axios);
 
 app.use(store);

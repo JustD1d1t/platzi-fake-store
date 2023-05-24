@@ -23,6 +23,44 @@ export default {
         orders: [],
         favorite: {},
         addedToCart: {},
+        addresses: [
+          {
+            name: "Main",
+            firstName: "Dawid",
+            lastName: "Starzyk",
+            street: "Testowa",
+            streetNumber: "23",
+            houseNumber: "55",
+            zipCode: "01-500",
+            country: "Poland",
+            city: "Warsaw",
+            default: true,
+          },
+          {
+            name: "Second",
+            firstName: "Dawid2",
+            lastName: "Starzyk2",
+            street: "Ulicowa",
+            streetNumber: "55",
+            houseNumber: "65",
+            zipCode: "01-900",
+            country: "Poland",
+            city: "Cracow",
+            default: false,
+          },
+          {
+            name: "Third",
+            firstName: "Dawid3",
+            lastName: "Starzyk3",
+            street: "Jakaś fajna",
+            streetNumber: "11",
+            houseNumber: "66",
+            zipCode: "55-900",
+            country: "Poland",
+            city: "Lublin",
+            default: false,
+          },
+        ],
       },
     };
   },
@@ -93,6 +131,30 @@ export default {
     },
     setUserMail(state, payload) {
       state.email = payload.email;
+    },
+    removeAddress(state, payload) {
+      state.user.addresses = state.user.addresses.filter(
+        (address) => address.name !== payload.address.name
+      );
+    },
+    setAddressAsDefault(state, payload) {
+      const user = { ...state.user };
+      const address = user.addresses.find(
+        (address) => address.name === payload.address.name
+      );
+      if (address) {
+        const currDefaultAddress = user.addresses.find(
+          (address) => address.default === true
+        );
+        currDefaultAddress.default = false;
+        address.default = true;
+      }
+      state.user = {
+        ...user,
+      };
+    },
+    addNewAddress(state, payload) {
+      state.user.addresses.push(payload.address);
     },
   },
   actions: {},

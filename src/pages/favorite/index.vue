@@ -8,7 +8,7 @@
             <productsBrick v-for="(product, index) in favorite" :product="product" :key="index" :pickedVariant="product.id"
                 @displayNotification="displayNotification" @addedToFavorite="displayNotification" />
         </section>
-        <notification :show="notificationVisible">{{ notificationText }}</notification>
+        <notification :show="notificationVisible" @hide="hideNotification">{{ notificationText }}</notification>
     </div>
 </template>
 
@@ -34,10 +34,10 @@ export default {
         displayNotification(text) {
             this.notificationText = text;
             this.notificationVisible = true;
-            setTimeout(() => {
-                this.notificationText = undefined;
-                this.notificationVisible = false;
-            }, 1500);
+        },
+        hideNotification() {
+            this.notificationText = undefined;
+            this.notificationVisible = false;
         }
     }
 }
@@ -54,9 +54,11 @@ export default {
     @media screen and (min-width: 767px) {
         grid-template-columns: repeat(2, 1fr);
     }
+
     @media screen and (min-width: 1023px) {
         grid-template-columns: repeat(3, 1fr);
     }
+
     @media screen and (min-width: 1399px) {
         grid-template-columns: repeat(4, 1fr);
     }
