@@ -10,7 +10,7 @@
             </div>
         </form>
     </box>
-    <notification :show="notificationVisible">{{ notificationText }}</notification>
+    <notification :show="notificationVisible" @hide="hideNotification">{{ notificationText }}</notification>
 </template>
 
 <script>
@@ -70,7 +70,6 @@ export default {
             }
             validateConfirmPassword(this.fields.newPassword.value, this.fields.confirmNewPassword.value, this.errors);
 
-            console.log(this.errors)
             if (Object.keys(this.errors).length) {
                 return
             }
@@ -83,10 +82,10 @@ export default {
         displayNotification(text) {
             this.notificationVisible = true;
             this.notificationText = text;
-            setTimeout(() => {
-                this.notificationVisible = false;
-                this.notificationText = '';
-            }, 1500);
+        },
+        hideNotification() {
+            this.notificationVisible = false;
+            this.notificationText = '';
         },
         changeToLogin() {
             this.$router.push({ name: "login" })

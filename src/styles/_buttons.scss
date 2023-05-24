@@ -40,6 +40,10 @@ button {
     }
   }
 
+  &.btn-small {
+    padding: 0.25rem 0.75rem;
+  }
+
   &.btn-big {
     padding: 1rem 3rem;
     font-size: 1.5rem;
@@ -62,5 +66,9 @@ button {
         transform: scale(1.1);
       }
     }
+  }
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 }

@@ -18,7 +18,7 @@
             </div>
         </form>
     </box>
-    <notification :show="notificationVisible">User has been created</notification>
+    <notification :show="notificationVisible" @hide="hideNotification">User has been created</notification>
 </template>
 
 <script>
@@ -89,10 +89,10 @@ export default {
         },
         displayNotification() {
             this.notificationVisible = true;
-            setTimeout(() => {
-                this.notificationVisible = false;
-                this.$router.push({ name: 'login' })
-            }, 1500);
+        },
+        hideNotification() {
+            this.notificationVisible = false;
+            this.$router.push({ name: 'login' })
         },
         changeToLogin() {
             this.$router.push({ name: "login" })

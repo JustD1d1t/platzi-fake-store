@@ -16,7 +16,7 @@
     <pagination :nextDisabled="nextPageLinkDisabled" :prevDisabled="prevPageLinkDisabled" @nextPage="getNextScooters"
       @prevPage="getPrevScooters" />
   </section>
-  <notification :show="notificationVisible">{{ notificationText }}</notification>
+  <notification :show="notificationVisible" @hide="hideNotification">{{ notificationText }}</notification>
 </template>
 
 <script>
@@ -201,6 +201,9 @@ export default {
       this.nextPageLink = resPagination.nextPageLink;
       this.prevPageLink = resPagination.prevPageLink;
       this.products = resPagination.products;
+      if (window.innerWidth < 1399) {
+        this.toggleFilters();
+      }
     },
     toggleFilters() {
       document.body.classList.toggle('overflow-hidden')
@@ -229,10 +232,10 @@ export default {
     displayNotification(text) {
       this.notificationVisible = true;
       this.notificationText = text;
-      setTimeout(() => {
-        this.notificationText = undefined;
-        this.notificationVisible = false;
-      }, 1500);
+    },
+    hideNotification() {
+      this.notificationText = undefined;
+      this.notificationVisible = false;
     },
     getNextScooters() {
       this.$router.push(this.nextPageLink)
@@ -277,7 +280,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: 50px auto 1fr;
-  grid-template-areas: 'filter' 'items' 'pagination';
+  grid-template-areas: 'filter' 'active-filters' 'items' 'pagination';
 
   @media screen and (min-width: 1399px) {
     grid-template-columns: 250px 1fr 1fr 1fr;
@@ -329,6 +332,7 @@ export default {
       grid-template-rows: auto auto 1fr;
       gap: 35px 52px;
     }
+
     @media screen and (min-width: 1023px) {
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: auto auto 1fr;

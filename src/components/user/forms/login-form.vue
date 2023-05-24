@@ -38,7 +38,6 @@ export default {
                     name: 'email',
                     type: 'e-mail',
                     required: true,
-                    // value: this.user.email,
                     value: 'test@example.com',
                     disabled: false,
                 },
@@ -47,7 +46,6 @@ export default {
                     name: 'password',
                     type: 'password',
                     required: true,
-                    // value: this.user.password,
                     value: 'Test123',
                     disabled: false,
                 }

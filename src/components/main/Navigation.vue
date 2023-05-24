@@ -175,6 +175,7 @@ export default {
     height: auto !important;
     min-height: unset !important;
     overflow: hidden;
+    padding: 16px 0 !important;
 
     &.active {
       @media screen and (max-width: 1439px) {

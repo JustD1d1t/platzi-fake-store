@@ -1,8 +1,8 @@
 <template>
     <Transition>
-        <div class="notification" v-if="show">
+        <box class="notification" v-if="show">
             <slot />
-        </div>
+        </box>
     </Transition>
 </template>
 
@@ -13,8 +13,16 @@ export default {
             type: Boolean,
             default: false
         }
+    },
+    watch: {
+        show() {
+            if (this.show) {
+                setTimeout(() => {
+                    this.$emit("hide")
+                }, 1500);
+            }
+        }
     }
-
 }
 </script>
 
@@ -22,9 +30,9 @@ export default {
 .notification {
     position: fixed;
     top: 80px;
-    background-color: $green;
+    left: 50%;
+    transform: translateX(-50%);
     border-radius: 10px;
-    border: 2px solid $primary;
     padding: 12px 16px;
     width: $container-width;
     max-width: 100%;
@@ -32,11 +40,7 @@ export default {
     font-weight: 600;
     font-size: 18px;
     z-index: 999;
-    left: 0;
-
-    @media screen and (min-width: 1023px) {
-        left: auto;
-    }
+    background-color: $white;
 }
 
 .v-enter-active,
