@@ -43,6 +43,7 @@ export default {
     ...mapState("user", {
       addedToCart: "addedToCart",
       favorite: "favorite",
+      user: "user",
     }),
     actionLinks() {
       return [
@@ -93,8 +94,9 @@ export default {
       return count;
     },
     favoriteLength() {
-      const favorite = this.favorite;
-      return Object.keys(favorite).length
+      if (Object.keys(this.user.favorite).length) {
+        return Object.keys(this.user.favorite).length
+      } else return Object.keys(this.favorite).length
     }
   },
   methods: {

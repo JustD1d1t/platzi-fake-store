@@ -1,12 +1,13 @@
 <template>
-    <div v-if="!Object.keys(favorite).length">
-        <h2 class="text-center" v-if="!isAnyScooterInCart">You don't have favorite scooters</h2>
+    <div v-if="!isAnyScooterInFavorite">
+        <h2 class="text-center">You don't have favorite scooters</h2>
     </div>
     <div v-else>
         <h2 class="text-center">Favorite scooters</h2>
         <section class="favorite">
-            <productsBrick v-for="(product, index) in favorite" :product="product" :key="index" :pickedVariant="product.id"
-                @displayNotification="displayNotification" @addedToFavorite="displayNotification" />
+            <productsBrick v-for="(product, index) in scootersToDisplay" :product="product" :key="index"
+                :pickedVariant="product.id" @displayNotification="displayNotification"
+                @addedToFavorite="displayNotification" />
         </section>
         <notification :show="notificationVisible" @hide="hideNotification">{{ notificationText }}</notification>
     </div>
@@ -27,8 +28,20 @@ export default {
     },
     computed: {
         ...mapState('user', {
-            favorite: "favorite"
-        })
+            favorite: "favorite",
+            user: 'user'
+        }),
+        isAnyScooterInFavorite() {
+            if (Object.keys(this.user.favorite).length) {
+                return !!Object.keys(this.user.favorite).length
+            } else return !!Object.keys(this.favorite).length
+
+        },
+        scootersToDisplay() {
+            if (Object.keys(this.user.favorite).length) {
+                return this.user.favorite
+            } else return this.favorite
+        }
     },
     methods: {
         displayNotification(text) {
