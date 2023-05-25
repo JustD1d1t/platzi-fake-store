@@ -54,6 +54,7 @@ button {
   }
 
   &.btn-svg {
+    cursor: pointer;
     transition: transform 0.1s linear;
 
     &:deep(svg) {

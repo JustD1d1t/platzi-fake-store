@@ -46,13 +46,16 @@ export default {
     computed: {
         ...mapState('user', [
             'favorite',
+            'user'
         ]),
         availableColors() {
             return this.product.variants.map(variant => variant.color)
         },
         isInFavorites() {
             const currentVariantId = this.product.variants[this.selectedVariant].variantId;
-            return this.favorite[currentVariantId]
+            if (Object.keys(this.user).length) {
+                return this.user.favorite[currentVariantId]
+            } else return this.favorite[currentVariantId]
         },
     },
     methods: {

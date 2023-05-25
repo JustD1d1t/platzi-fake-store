@@ -66,16 +66,30 @@ export default {
   },
   mutations: {
     toggleFavorite(state, payload) {
-      const favoriteVariantId =
-        payload.scooter.variants[payload.selectedVariant].variantId;
-      if (state.favorite[favoriteVariantId]) {
-        delete state.favorite[favoriteVariantId];
+      if (!Object.keys(state.user).length) {
+        const favoriteVariantId =
+          payload.scooter.variants[payload.selectedVariant].variantId;
+        if (state.favorite[favoriteVariantId]) {
+          delete state.favorite[favoriteVariantId];
+        } else {
+          const favoriteScooter = { ...payload.scooter };
+          favoriteScooter.variants = favoriteScooter.variants.filter(
+            (variant) => variant.variantId === favoriteVariantId
+          );
+          state.favorite[favoriteVariantId] = favoriteScooter;
+        }
       } else {
-        const favoriteScooter = { ...payload.scooter };
-        favoriteScooter.variants = favoriteScooter.variants.filter(
-          (variant) => variant.variantId === favoriteVariantId
-        );
-        state.favorite[favoriteVariantId] = favoriteScooter;
+        const favoriteVariantId =
+          payload.scooter.variants[payload.selectedVariant].variantId;
+        if (state.user.favorite[favoriteVariantId]) {
+          delete state.user.favorite[favoriteVariantId];
+        } else {
+          const favoriteScooter = { ...payload.scooter };
+          favoriteScooter.variants = favoriteScooter.variants.filter(
+            (variant) => variant.variantId === favoriteVariantId
+          );
+          state.user.favorite[favoriteVariantId] = favoriteScooter;
+        }
       }
     },
     addToCart(state, payload) {
