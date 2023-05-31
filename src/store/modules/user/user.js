@@ -94,6 +94,7 @@ export default {
           },
         ],
         activePromocode: "pr0m0c0d3",
+        loyaltyPoints: 950,
       },
     };
   },
