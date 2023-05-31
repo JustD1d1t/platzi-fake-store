@@ -5,7 +5,7 @@ export default {
     return {
       email: "test@example.com",
       favorite: {},
-      addedToCart: {},
+      addedToCart: [],
       // user: {},
       user: {
         email: "test@example.com",
@@ -22,7 +22,7 @@ export default {
         mobile: "731773391",
         orders: [],
         favorite: {},
-        addedToCart: {},
+        addedToCart: [],
         promocodes: [
           {
             name: "Promocode one",
@@ -127,55 +127,61 @@ export default {
       }
     },
     addToCart(state, payload) {
-      const scooter = payload.scooter;
-      const scooterId =
-        payload.scooter.variants[payload.selectedVariant].variantId;
-      const isInCart = state.addedToCart[scooterId];
-      if (isInCart) {
-        state.addedToCart[scooterId].quantity =
-          state.addedToCart[scooterId].quantity + 1;
+      const { scooter, selectedVariant } = payload;
+      const cart = state.user.email
+        ? state.user.addedToCart
+        : state.addedToCart;
+      const scooterInCart = cart.find(
+        (scooterInCart) => scooterInCart.name === scooter.name
+      );
+      if (scooterInCart) {
+        if (scooterInCart.variants[selectedVariant].amount) {
+          scooterInCart.variants[selectedVariant].amount += 1;
+        } else {
+          scooterInCart.variants[selectedVariant].amount = 1;
+        }
       } else {
-        state.addedToCart[scooterId] = {
-          country: scooter.country,
-          engineCapacity: scooter.engineCapacity,
-          manufacturer: scooter.manufacturer,
-          name: scooter.name,
-          powerType: scooter.powerType,
-          price: scooter.price,
-          seats: scooter.seats,
-          topSpeed: scooter.topSpeed,
-          wheelSize: scooter.wheelSize,
-          color: scooter.variants[payload.selectedVariant].color,
-          deliveryTime: scooter.variants[payload.selectedVariant].deliveryTime,
-          description: scooter.variants[payload.selectedVariant].description,
-          fastestDeliveryTime:
-            scooter.variants[payload.selectedVariant].fastestDeliveryTime,
-          id: scooter.variants[payload.selectedVariant].variantId,
-          image: scooter.variants[payload.selectedVariant].image,
-          numberOfVotes:
-            scooter.variants[payload.selectedVariant].numberOfVotes,
-          rating: scooter.variants[payload.selectedVariant].rating,
-          quantity: 1,
-        };
+        scooter.variants[selectedVariant].amount = 1;
+        cart.push(scooter);
       }
     },
     increaseQuantity(state, payload) {
-      const id = payload.scooter.id;
-      const scooterToIncreaseQuantity = { ...state.addedToCart[id] };
-      scooterToIncreaseQuantity.quantity =
-        scooterToIncreaseQuantity.quantity + 1;
-      state.addedToCart[id] = scooterToIncreaseQuantity;
+      const cart = state.user.email
+        ? state.user.addedToCart
+        : state.addedToCart;
+      cart.find((scooter) =>
+        scooter.variants.find((variant) => {
+          if (variant.variantId === payload.scooter.variantId) {
+            variant.amount += 1;
+            return;
+          }
+        })
+      );
     },
     decreaseQuantity(state, payload) {
-      const id = payload.scooter.id;
-      const scooterToIncreaseQuantity = { ...state.addedToCart[id] };
-      scooterToIncreaseQuantity.quantity =
-        scooterToIncreaseQuantity.quantity - 1;
-      if (scooterToIncreaseQuantity.quantity) {
-        state.addedToCart[id] = scooterToIncreaseQuantity;
-      } else {
-        delete state.addedToCart[id];
-      }
+      let cart = state.user.email ? state.user.addedToCart : state.addedToCart;
+      cart.find((scooter) =>
+        scooter.variants.find((variant) => {
+          if (variant.variantId === payload.scooter.variantId) {
+            variant.amount -= 1;
+            if (
+              scooter.variants.every((variant) => {
+                return variant.amount === 0 || variant.amount === undefined;
+              })
+            ) {
+              cart = cart.filter(
+                (scooterCart) => scooterCart.name !== scooter.name
+              );
+              if (state.user.email) {
+                state.user.addedToCart = [...cart];
+              } else {
+                state.addedToCart = [...cart];
+              }
+            }
+            return;
+          }
+        })
+      );
     },
     setUserMail(state, payload) {
       state.email = payload.email;
