@@ -1,7 +1,7 @@
 <template>
     <div class="basket-item__quantity">
         <button class="basket-item__quantity-toggler" @click="() => decreaseQuantity({ scooter: scooter })">-</button>
-        <span class="basket-item__quantity-counter">{{ scooter.quantity }}</span>
+        <span class="basket-item__quantity-counter">{{ scooter.amount }}</span>
         <button class="basket-item__quantity-toggler" @click="() => increaseQuantity({ scooter: scooter })">+</button>
         <span class="basket-item__quantity-price">{{ price.toFixed(2) }}</span>
     </div>
@@ -18,7 +18,7 @@ export default {
     },
     computed: {
         price() {
-            return this.scooter.quantity * this.scooter.price;
+            return this.scooter.amount * this.scooter.price;
         }
     },
     methods: {

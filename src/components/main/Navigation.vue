@@ -86,11 +86,15 @@ export default {
       ]
     },
     addedToCartQuantity() {
-      const cart = this.addedToCart;
+      const cart = this.user.email ? this.user.addedToCart : this.addedToCart;
       let count = 0;
-      for (const key in cart) {
-        count += cart[key].quantity
-      }
+      cart.forEach(scooter => {
+        scooter.variants.forEach(variant => {
+          if (variant.amount) {
+            count += variant.amount
+          }
+        })
+      });
       return count;
     },
     favoriteLength() {

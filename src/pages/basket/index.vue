@@ -2,7 +2,7 @@
     <div v-if="step === 0" :class="{ 'basket-items__no-items': !isAnyScooterInCart }">
         <h2 class="text-center" v-if="!isAnyScooterInCart">There is no items in your basket</h2>
         <div v-else class="basket-items">
-            <basketItem v-for="  scooter   in   addedToCart  " :key="scooter.id" :scooter="scooter" />
+            <basketItem v-for="scooter in scootersToDisplay" :key="scooter.id" :scooter="scooter" />
         </div>
         <the-button class="btn btn-primary btn-big finish-shopping-button" @click="() => setStep(1)"
             v-if="isAnyScooterInCart">
@@ -67,16 +67,33 @@ export default {
     computed: {
         ...mapState('user', [
             'addedToCart',
+            'user'
         ]),
+        scootersInCart() {
+            return this.user.email ? this.user.addedToCart : this.addedToCart
+        },
         isAnyScooterInCart() {
-            return Object.keys(this.addedToCart).length
+            return this.scootersInCart.length
+        },
+        scootersToDisplay() {
+            const scooters = [];
+            this.scootersInCart.forEach(scooter => scooter.variants.forEach(variant => {
+                if (variant.amount) {
+                    scooters.push({
+                        ...scooter,
+                        ...variant
+                    })
+                }
+            }));
+            return scooters;
         },
         totalCost() {
             let total = 0;
-
-            for (const key in this.addedToCart) {
-                total += this.addedToCart[key].quantity * this.addedToCart[key].price
-            }
+            this.scootersInCart.forEach(scooter => scooter.variants.forEach(variant => {
+                if (variant.amount) {
+                    total += variant.amount * scooter.price
+                }
+            }));
 
             return total;
         },
