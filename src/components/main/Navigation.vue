@@ -81,7 +81,7 @@ export default {
         },
         {
           url: "/about",
-          label: 'About us'
+          label: 'About'
         },
       ]
     },
