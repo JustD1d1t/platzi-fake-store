@@ -15,6 +15,7 @@ import promocodes from "@/pages/user/promocodes"
 import addresses from "@/pages/user/addresses"
 import loyalty from "@/pages/user/loyalty"
 import announcements from "@/pages/user/announcements"
+import about from "@/pages/about/index"
 
 import auth from "./middleware/auth";
 import isNotLoggedIn from "@/middleware/isNotLoggedIn";
@@ -24,6 +25,10 @@ const routes = [
   {
     path: "/",
     component: IndexPage,
+  },
+  {
+    path: "/about",
+    component: about,
   },
   {
     path: "/catalog",
