@@ -23,6 +23,38 @@ export default {
         orders: [],
         favorite: {},
         addedToCart: {},
+        promocodes: [
+          {
+            name: "Promocode one",
+            code: "pr0m0c0d3",
+            discount: 0.15,
+            condition: "You have to spend at least 5000",
+          },
+          {
+            name: "Promocode two",
+            code: "pr0m0c0d3 ch1na",
+            discount: 0.1,
+            condition: "You have to buy scooter from china",
+          },
+          {
+            name: "Promocode three",
+            code: "pr0m0c0d3 3l3ctr1c1ty",
+            discount: 0.05,
+            condition: "You have to buy electric scooter",
+          },
+          {
+            name: "Promocode four",
+            code: "pr0m0c0d3 fu3l",
+            discount: 0.25,
+            condition: "You have to buy fuel scooter",
+          },
+          {
+            name: "Promocode five",
+            code: "pr0m0c0d3 n3w",
+            discount: 0.05,
+            condition: "Promocode for new users for all orders",
+          },
+        ],
         addresses: [
           {
             name: "Main",
@@ -61,6 +93,7 @@ export default {
             default: false,
           },
         ],
+        activePromocode: "pr0m0c0d3",
       },
     };
   },
@@ -169,6 +202,9 @@ export default {
     },
     addNewAddress(state, payload) {
       state.user.addresses.push(payload.address);
+    },
+    setNewPromocodeActive(state, payload) {
+      state.user.activePromocode = payload.promocode;
     },
   },
   actions: {},
